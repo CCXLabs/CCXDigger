@@ -1,0 +1,242 @@
+name: Packs.CyberCX.Windows.WebshellSearch
+description: |
+  This search aims to identify potentially malicious files that may be indicative of a [webshell](https://www.cyber.gov.au/acsc/view-all-content/threats/web-shell-malware).
+
+  Specifically, key words and phrases will be searched for across all files with extensions of .php, .txt, .py, .aspx, or .resx.
+
+  More information about how to interpret the results of this search are available on our [wiki](https://github.com/CCXLabs/CCXDigger/wiki/Webshell-%5B0.1%5D).
+
+  ## References
+  
+  Further information on the detection and prevention of webshells can be found at the following location:
+
+  * <https://media.defense.gov/2020/Jun/09/2002313081/-1/-1/0/CSI-DETECT-AND-PREVENT-WEB-SHELL-MALWARE-20200422.PDF>
+
+tools:
+  - name: CCXYaraRules
+
+parameters:
+    - name: nameRegex
+      description: Only file names that match this regular expression will be scanned.
+      default: "(php|txt|py|aspx|resx|asmx)$"
+
+precondition:
+  SELECT * FROM info() WHERE OS =~ "windows"
+
+sources:
+  - query: |
+        LET yara_rules <= SELECT read_file(filename=FullPath) AS Rule
+        FROM Artifact.Generic.Utils.FetchBinary(ToolName="CCXYaraRules")
+        WHERE log(message="Scanning drive for webshells with extensions " + nameRegex)
+
+        LET fileList = SELECT FullPath
+        FROM parse_mft(
+            accessor="ntfs",
+            filename="C:\\$MFT")
+        WHERE InUse
+          AND FileName =~ nameRegex
+          AND NOT FullPath =~ "WinSXS"
+
+        -- These files are typically short - only report a single hit.
+        LET search = SELECT Rule, String.Offset AS HitOffset,
+             str(str=String.Data) AS HitContext,
+             FileName,
+             File.Size AS Size,
+             File.ModTime AS ModTime
+        FROM yara(
+            rules=yara_rules[0].Rule, key="A",
+            files="C:/" + FullPath)
+        WHERE log(message="Found a potential hit at " + FileName)
+        LIMIT 1
+
+        -- Only do something when yara rules are available.
+        SELECT * FROM if(condition=yara_rules,
+        then={
+          SELECT *, upload(file=FileName) AS Upload
+          FROM foreach(row=fileList, query=search)
+        })
+
+reports:
+  - type: CLIENT
+    template: |
+     # Webshell YARA Scan
+
+     {{ .Description }}
+
+     {{ $rows := Query "SELECT * FROM source() \
+                         WHERE Rule =~ 'importprint_php_sig_334_php_1_txt' LIMIT 1" | Expand }}
+
+     {{ if $rows }}
+
+     ## PHP Webshell
+
+       <div role="button" class="btn btn-primary btn-block row collapsible">View Details</div>
+       <div class="collapse row"><div class="card card-body overflow-auto">
+
+     ### Summary
+
+     Files in locations designated by the field “FileName” have been detected containing code associated with an extension of [.php](https://fileinfo.com/extension/php#:~:text=A%20PHP%20file%20is%20a,PHP%x20%28Hypertext%20Preprocessor%29%20code.&text=The%20PHP%20code%20within%20the,to%20the%20user's%20web%20browser) and the characteristics of a [webshell](https://www.cyber.gov.au/acsc/view-all-content/threats/web-shell-malware). This type of webshell is capable of running commands passed to it by an attacker via their browser.
+
+     More information about this detection and what to do with it is available at our [wiki](https://github.com/CCXLabs/CCXDigger/wiki/Webshells-%5B0.1%5D#php-webshell).
+
+        {{ Query "SELECT FileName, Size, ModTime FROM source() \
+        WHERE Rule =~ 'importprint_php_sig_334_php_1_txt'" | Table }}</div>
+        </div>
+
+     {{ end }}
+
+     {{ $rows := Query "SELECT * FROM source() \
+           WHERE Rule =~ 'd_py1' LIMIT 1" | Expand }}
+
+     {{ if $rows }}
+
+     ## EternalBlue Exploit Script
+
+       <div role="button" class="btn btn-primary btn-block row collapsible">View Details</div>
+       <div class="collapse row"><div class="card card-body overflow-auto">
+
+     ### Summary
+
+     Files have been detected demonstrating characteristics of a script used to exploit a vulnerability which exists within the Windows protocol Server Message Block (SMB), called [Eternal Blue](https://www.cisecurity.org/wp-content/uploads/2019/01/Security-Primer-EternalBlue.pdf).
+
+     More information about this detection and what to do with it is available at our [wiki](https://github.com/CCXLabs/CCXDigger/wiki/Webshells-%5B0.1%5D#eternalblue-exploit-script).
+
+         {{ Query "SELECT FileName, Size, ModTime FROM source() \
+                 WHERE Rule =~ 'd_py1'" | Table }}
+         </div></div>
+
+     {{ end }}
+
+     {{ $rows := Query "SELECT * FROM source() \
+                         WHERE Rule =~ 'default_errorEN_logon_0_aspx' LIMIT 1" | Expand }}
+
+     {{ if $rows }}
+
+     ## Webshell with Encoded Malware
+
+       <div role="button" class="btn btn-primary btn-block row collapsible">View Details</div>
+       <div class="collapse row"><div class="card card-body overflow-auto">
+
+     ### Summary
+
+     This detection was triggered by a search for a basic webshell containing an encoded malware file.
+
+     More information about this detection and what to do with it is available at our [wiki](https://github.com/CCXLabs/CCXDigger/wiki/Webshells-%5B0.1%5D#webshell-with-encoded-malware).
+
+        {{ Query "SELECT FileName, Size, ModTime FROM source() \
+        WHERE Rule =~ 'default_errorEN_logon_0_aspx'" | Table }}</div>
+        </div>
+
+     {{ end }}
+
+     {{ $rows := Query "SELECT * FROM source() \
+                         WHERE Rule =~ 'logon_aspx1' LIMIT 1" | Expand }}
+
+     {{ if $rows }}
+
+     ## False Microsoft Exchange Logon Page
+
+       <div role="button" class="btn btn-primary btn-block row collapsible">View Details</div>
+       <div class="collapse row"><div class="card card-body overflow-auto">
+
+     ### Summary
+
+     This detection was triggered by a search for a webshell masquerading as a Microsoft Exchange Server logon page but containing an encoded malware file.
+
+     More information about this detection and what to do with it is available at our [wiki](https://github.com/CCXLabs/CCXDigger/wiki/Webshells-%5B0.1%5D#false-microsoft-exchange-logon-page).
+
+        {{ Query "SELECT FileName, Size, ModTime FROM source() \
+                                     WHERE Rule =~ 'logon_aspx1'" | Table }}</div>
+        </div>
+
+     {{ end }}
+
+     {{ $rows := Query "SELECT * FROM source() \
+         WHERE Rule =~ 'logon_aspx2' LIMIT 1" | Expand }}
+
+     {{ if $rows }}
+
+     ## Perl Recon Script
+
+       <div role="button" class="btn btn-primary btn-block row collapsible">View Details</div>
+       <div class="collapse row"><div class="card card-body overflow-auto">
+
+     ### Summary
+
+     This detection was triggered by a search for a script used to gather information about a computer and send it to a remote server. This script is written in a language called Perl. This program isn't a webshell but may be run by one for reconnoissance.
+
+     More information about this detection and what to do with it is available at our [wiki](https://github.com/CCXLabs/CCXDigger/wiki/Webshells-%5B0.1%5D#perl-reconnaissance-script).
+
+       {{ Query "SELECT FileName, Size, ModTime FROM source() \
+       WHERE Rule =~ 'logon_aspx2'" | Table }}</div>
+       </div>
+
+     {{ end }}
+
+     {{ $rows := Query "SELECT * FROM source() \
+                             WHERE Rule =~ 'About_aspx' LIMIT 1" | Expand }}
+
+     {{ if $rows }}
+
+     ## Reverse Webshell
+
+       <div role="button" class="btn btn-primary btn-block row collapsible">View Details</div>
+       <div class="collapse row"><div class="card card-body overflow-auto">
+
+     ### Summary
+
+     This detection was triggered by a search for a basic webshell which runs commands passed to it as a parameter.
+
+     More information about this detection and what to do with it is available at our [wiki](https://github.com/CCXLabs/CCXDigger/wiki/Webshells-%5B0.1%5D#reverse-webshell).
+
+        {{ Query "SELECT FileName, Size, ModTime FROM source() \
+        WHERE Rule =~ 'About_aspx'" | Table }}</div>
+        </div>
+
+     {{ end }}
+
+     {{ $rows := Query "SELECT * FROM source() \
+                             WHERE Rule =~ 'InitialSrvWrk_aspx' LIMIT 1" | Expand }}
+
+     {{ if $rows }}
+
+     ## Obfuscated and Encoded Malware Webshell
+
+       <div role="button" class="btn btn-primary btn-block row collapsible">View Details</div>
+       <div class="collapse row"><div class="card card-body overflow-auto">
+
+     ### Summary
+
+     This detection was triggered by a search for a basic webshell containing encoded malware which has been heavily obfuscated.
+
+     More information about this detection and what to do with it is available at our [wiki](hhttps://github.com/CCXLabs/CCXDigger/wiki/Webshells-%5B0.1%5D#obfuscated-and-encoded-webshell).
+
+       {{ Query "SELECT FileName, Size, ModTime FROM source() \
+        WHERE Rule =~ 'InitialSrvWrk_aspx'" | Table }}</div>
+       </div>
+
+     {{ end }}
+
+     {{ $rows := Query "SELECT * FROM source() \
+     WHERE Rule =~ 'default_aspx' LIMIT 1" | Expand }}
+
+     {{ if $rows }}
+
+     ## Malicious Resource File
+
+       <div role="button" class="btn btn-primary btn-block row collapsible">View Details</div>
+       <div class="collapse row"><div class="card card-body overflow-auto">
+
+     ### Summary
+
+     This detection was triggered by a search for a resource file containing encoded malware to be loaded by a webshell.
+
+     Resource files, which typically have extensions of .resx, store data used by other programs created through the Microsoft .NET development toolkit. These other programs that use .resx files will typically be stored in files with file extensions of .vb, .vbs, .wsf, .aspx, or .asax.
+
+     More information about this detection and what to do with it is available at our [wiki](https://github.com/CCXLabs/CCXDigger/wiki/Webshells-%5B0.1%5D#obfuscated-and-encoded-webshell).
+
+        {{ Query "SELECT FileName, Size, ModTime FROM source() \
+        WHERE Rule =~ 'default_aspx'" | Table }}</div>
+        </div>
+
+     {{ end }}

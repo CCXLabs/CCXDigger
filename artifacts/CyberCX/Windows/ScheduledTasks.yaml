@@ -1,0 +1,41 @@
+name: Packs.CyberCX.Windows.ScheduledTasks
+description: |
+  A [scheduled task](https://blog.malwarebytes.com/cybercrime/2015/03/scheduled-tasks/) allows users to set commands to be executed at a specified time. These are often used by attackers to gain persistence on a system. Certain potentially malicious tasks running [batch files](https://fileinfo.com/extension/bat) (.bat) were found.
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+parameters:
+  - name: SuspiciousScheduledTaskRegex
+    default: "\\.bat$"
+
+sources:
+ - query: |
+     SELECT *, upload(file=Command) AS Upload
+     FROM Artifact.Windows.System.TaskScheduler()
+     WHERE Command =~ ".bat$"
+
+
+reports:
+  - type: CLIENT
+    template: |
+      # Suspicious Scheduled Tasks
+
+      {{ .Description }}
+
+      {{ $rows := Query "SELECT * FROM source() \
+                         LIMIT 1" | Expand }}
+
+      {{ if $rows }}
+
+      ## Summary
+
+      A suspicious scheduled task built to execute a batch file, as indicated in the parameter "Command", was identified. This is an indication of compromise, but may not definitively be malicious. This file has been collected by Velociraptor.
+      
+      If you need additional information about this detection or assistance with interpeting the results, please refer to our [Wiki](https://github.com/CCXLabs/CCXDigger/wiki/Scheduled-Tasks-%5B0.1%5D).
+      
+        <div role="button" class="btn btn-primary btn-block row collapsible">View Details</div>
+        <div class="collapse row"><div class="card card-body overflow-auto">
+        {{ Query "SELECT * FROM source() LIMIT 50" | Table }}
+        </div> </div>
+
+      {{ end }}

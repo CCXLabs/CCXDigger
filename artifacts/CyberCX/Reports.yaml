@@ -1,0 +1,286 @@
+name: Packs.CyberCX.Reports
+description: |
+  A Reporting template for generating a report document.
+
+parameters:
+- name: Banner
+  type: hidden
+  default: |
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    <cyan> .d8888b.   .d8888b. Y88b   d88P     <red> 8888888b.  d8b
+    <cyan>d88P  Y88b d88P  Y88b Y88b d88P      <red> 888  "Y88b Y8P
+    <cyan>888    888 888    888  Y88o88P       <red> 888    888
+    <cyan>888        888          Y888P        <red> 888    888 888  .d88b.   .d88b.   .d88b.  888d888
+    <cyan>888        888          d888b        <red> 888    888 888 d88P"88b d88P"88b d8P  Y8b 888P"
+    <cyan>888    888 888    888  d88888b       <red> 888    888 888 888  888 888  888 88888888 888
+    <cyan>Y88b  d88P Y88b  d88P d88P Y88b      <red> 888  .d88P 888 Y88b 888 Y88b 888 Y8b.     888
+    <cyan> "Y8888P"   "Y8888P" d88P   Y88b     <red> 8888888P"  888  "Y88888  "Y88888  "Y8888  888
+    <cyan>                                     <red>                     888      888
+    <cyan>                                     <red>                Y8b d88P Y8b d88P
+    <cyan>                                     <red>                 "Y88P"   "Y88P"
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Running CCX Digger against the local system.
+    For more information, please refer to https://github.com/CCXLabs/CCXDigger
+
+sources:
+  - query: |
+      SELECT * FROM foreach(row=split(string=Banner, sep="\n"), query={
+         SELECT log(message=_value) FROM scope()
+      }) WHERE FALSE
+
+reports:
+  - type: HTML
+    template: |
+      <!doctype html>
+       <html lang="en-US">
+         <head>
+           {{ $repo := "https://github.com/CCXLabs/CCXDigger/blob/master/artifacts/" }}
+           <meta charset="utf-8">
+           <meta http-equiv="X-UA-Compatible" content="IE=edge">
+           <meta name="viewport" content="width=device-width, initial-scale=1">
+           <meta name="format-detection" content="telephone=no"/>
+
+           <style>
+             @charset "UTF-8";
+           body {
+             padding-top: 100px;
+           }
+           .header {
+               background-color: #040477;
+               border-bottom: 1px solid #2C9AB7;
+           }
+           .collapse {
+             display: none;
+           }
+           .anchor {
+             display: block;
+             position: relative;
+             top: -100px;
+             visibility: hidden;
+           }
+           .logo {
+             margin-top: -17px;
+             margin-bottom: -10px;
+             margin-left: 20px;
+             width: 155px;
+             height: 100px;
+             }
+           h1 {
+             color: #030476;
+             }
+           h3, h2 {
+             color: #75AFFF;
+           }
+           .sectionHeader{
+               color: #FFFFFF;
+               font-size: 24px;
+               background-color: #75AEFF;
+               font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+               font-variant: normal;
+               padding-top: 15px;
+               padding-bottom: 15px;
+               text-align: center;
+           }
+
+           </style>
+           <meta charset="utf-8">
+           <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+           <title>Velociraptor Report</title>
+
+           <!-- Bootstrap core CSS -->
+           <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+           <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" >
+
+           <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+           <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+           <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+         </head>
+         <body>
+           <nav class="header navbar navbar-expand-lg navbar-dark fixed-top">
+             <a class="navbar-brand" href="https://www.cybercx.com.au/" aria-label="CyberCX">
+               <img src="https://www.cybercx.com.au/wp-content/uploads/2020/03/logo_sm.png" class="logo"/>
+             </a>
+
+             <button class="navbar-toggler" type="button"
+                     data-toggle="collapse"
+                     data-target="#navbarSupportedContent"
+                     aria-controls="navbarSupportedContent"
+                     aria-expanded="false" aria-label="Toggle navigation">
+               <span class="navbar-toggler-icon"></span>
+             </button>
+             <div class="collapse navbar-collapse" id="navbarSupportedContent">
+               <ul class="navbar-nav mr-auto">
+                 <li class="nav-item active">
+                   <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                 </li>
+                 <li class="nav-item">
+                   <a class="nav-link" href="#">GitHub</a>
+                 </li>
+                 <li class="nav-item">
+                   <a class="nav-link" href="#" id="print-button">Print</a>
+                 </li>
+
+                 <li class="nav-item dropdown">
+                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                     Results
+                   </a>
+                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                     {{ range .parts }}{{ if not ( eq .Artifact.Name "Packs.CyberCX.Reports" ) }}
+                     <a class="dropdown-item" href="#{{- .Artifact.Name -}}">
+                       {{  $line := index .Artifact.Reports 0 }}
+                       {{ trimPrefix "#" ( split "\n" $line.Template  )._0 }}
+                     </a>
+                     {{ end }}{{ end }}
+                   </div>
+                 </li>
+               </ul>
+             </div>
+             <div class="navbar-brand navbar-right ">
+               <a href="https://www.velocidex.com/" aria-label="CyberCX">
+                 <!-- Velocidex Logo -->
+                 <img src="https://www.velocidex.com/images/logos/velo_word_on_side.svg" class="logo"/>
+               </a>
+             </div>
+           </nav>
+
+           <main role="main" class="container">
+             <div class="row sectionHeader">
+               <div class="col">
+                 {{ $data := Query "SELECT timestamp(epoch=now()).String AS Time, OS, Fqdn FROM info()" | Expand }}
+                 <!-- What the name of the scan is - Could be Host - Scan Results -->
+                 {{ Get $data "0.Fqdn" }} Scan Results
+               </div>
+               <!-- Date of when the report was exported -->
+               <div class="col">{{- Get $data "0.Time" -}}</div>
+             </div>
+
+             <div class="row">
+               <div class="col">
+                 <h1>About</h1>
+
+                 <p>This report shows the results of the CCX Digger tool on the above host at the provided timestamp. The CCX Digger project is designed
+                    to help Australian organisations determine if they have been impacted by certain high profile cyber security incidents. CCX Digger
+                    provides sophisticated threat hunting functionality packaged in a simple to use tool, allowing users to detect certain attacker activities;
+                    <b>all for free</b>.
+                    </p>
+
+                 <div class="alert alert-primary" role="alert">
+                   <b>IMPORTANT NOTE</b> – The provided results should always be considered in context, and are not definitive markers of compromise.
+                    However, results should be treated with suspicion and subject to further investigation. For more information or advice on further investigations, please see the <a href="https://github.com/CCXLabs/CCXDigger/wiki">Wiki</a>.
+                 </div>
+
+                 <p>For more information on how CCX Digger works, please
+                   refer to the project’s <a href="https://github.com/CCXLabs/CCXDigger">GitHub page</a>.</p>
+               </div>
+             </div>
+             <div class="row">
+               <!--Report Results-->
+               <div class="col">
+                 <h1>Summary of findings</h1>
+
+                 <table class="table">
+                   <thead><tr class="alert alert-primary">
+                       <th>Detector</th>
+                       <th>Details</th>
+                       <th>Detection Artifact</th>
+                       <th>Found</th>
+                   </tr></thead>
+                   <tbody>
+                     {{ range .parts }}{{ if not ( eq .Artifact.Name "Packs.CyberCX.Reports" ) }}
+                     {{ $artifact := .Artifact }}
+                     {{ $description := .Artifact.Description }}
+                     {{ range .Artifact.Sources }}
+                       {{ if .Description }}
+                          {{ $description = .Description }}
+                       {{ end }}
+
+                       <!-- Figure out how many rows were returned -->
+                       {{ $source := print "source(\n  source='" .Name "', artifact='" $artifact.Name "')" }}
+                       {{ $count := Get ( Query (print "LET X = SELECT * FROM " $source \
+                       " LIMIT 10000 SELECT 1 AS ALL, count() AS Count FROM X Group BY ALL") | Expand ) \
+                       "0.Count" }}
+
+                     <tr  class="{{- if $count -}}table-danger{{- else -}}table-success{{- end -}}"
+                        ><td>
+                         {{ $words := splitList "." $artifact.Name }}
+                         <a href="#{{- $artifact.Name }}">
+                           {{ index $words (sub (len $words) 1) }} {{ .Name }}
+                         </a>
+                       </td>
+                       <td>
+                         {{ $lines := splitList "\n" $description }}
+                         {{ Markdown (index $lines 0) }}
+                       </td>
+                       <td>
+                         <a href="{{ $repo }}{{ join "/" ( without ( splitList "." $artifact.Name) "Packs" ) }}.yaml">
+                           {{ $artifact.Name }}
+                         </a>
+                       </td>
+                       <td>
+                         {{ if $count }}
+                            {{ $count }} rows
+                         {{ else }}
+                            Not found
+                         {{ end }}
+                       </td>
+                     </tr>
+                     {{ end }}{{ end }}{{ end }}
+                   </tbody>
+                 </table>
+               </div>
+             </div>
+
+             {{ range .parts }}{{ if not ( eq .Artifact.Name "Packs.CyberCX.Reports" ) }}
+             <hr />
+             <div class="">
+               <a class="anchor" name="{{- .Artifact.Name -}}"></a>
+               {{ if .HTML }}
+                 {{ .HTML }}
+               {{ else }}
+                  No hits found!
+               {{ end }}
+             </div>
+
+           {{ end }}{{ end }}
+
+           <!-- Footer content. A glossary or reference point may be good here -->
+           <div class="row">
+             <h2>Acknowledgements</h2>
+           </div>
+             <p> This project would not be possible without support
+               from the following entities:
+             </p>
+             <ul>
+               <li><a href="https://www.cybercx.com.au/">CyberCX<a> </li>
+               <li><a href="https://www.velocidex.com">Velocidex</a> </li>
+             </ul>
+             <p> We also acknowledge contributions by the community in
+               developing these artifacts and getting behind
+               us. Individual contributor's are acknowledged within
+               each artifact they contributed. For more information on how you can contribute, see the <a href="https://github.com/CCXLabs/CCXDigger/wiki/Contribution-Guide">Contribution Guide</a></p>
+           </main>
+           <script>
+             $(".collapsible").click(function() {
+               $(this).next().toggle("slow", function() {
+                 $("table.table").DataTable().columns.adjust();
+               });
+             });
+
+             $("#print-button").click(function() {
+                $('table.table-striped').DataTable().destroy();
+                $(".collapsible").hide();
+                $(".collapse").removeClass("collapse");
+                window.print();
+                location.reload();
+             });
+
+             $(document).ready( function () {
+                $('table.table-striped').DataTable({
+                   "scrollY": 400,
+                   "scrollX": true,
+                   "autoWidth": false,
+                });
+             });
+           </script>
+        </body>
+       </html>

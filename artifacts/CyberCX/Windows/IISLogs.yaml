@@ -1,0 +1,107 @@
+name: Packs.CyberCX.Windows.IISLogs
+description: |
+ These log files detail information on the usage of applications running on web servers hosted via Internet Information Services (IIS). These logs have been searched for suspicious indicators associated with attacker activity.
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+parameters:
+  - name: IISLogFiles
+    default: '*:/inetpub/logs/**3/*.log'
+  - name: YaraRule
+    default: |
+      rule X {
+       strings:
+         $a = "ping%20"
+         $b = "net%20use%20"
+         $c2 = "ipconfig%20"
+         $c3 = "whoami%20"
+         $c4 = "tasklist%20"
+         $c5 = "netstat%20"
+         $c6 = "schtasks%20"
+         $c7 = "nslookup%20"
+         $c8 = "system32"
+         $d = "104.156.233.219"
+         $e = "131.153.16.198"
+         $f = "134.209.97.239"
+         $g = "138.197.204.4"
+         $h = "139.59.90.114"
+         $i = "144.202.85.4"
+         $j = "154.16.136.100"
+         $k = "159.203.29.101"
+         $l = "167.172.36.95"
+         $m = "172.86.75.49"
+         $n = "172.86.75.7"
+         $o = "172.86.75.86"
+         $p = "193.187.173.38"
+         $q = "194.36.191.227"
+         $r = "194.71.130.113"
+         $s = "198.255.66.27"
+         $t = "206.189.180.4"
+         $u = "206.189.98.83"
+         $v = "23.228.74.58"
+         $w = "31.214.157.153"
+         $x = "43.231.77.218"
+         $y = "45.125.192.221"
+         $z = "45.153.231.121"
+         $aa = "45.63.41.207"
+         $ab = "5.188.37.38"
+         $ac = "5.8.8.9"
+         $ad = "54.78.227.17"
+         $ae = "79.134.235.87"
+         $af = "79.134.235.89"
+         $ag = "81.194.38.139"
+         $ah = "92.38.188.85"
+         $ai = "94.103.95.25"
+         $aj = "139.99.237.34"
+         $ak = "194.71.130.115"
+         $al = "139.99.153.190"
+         $am = "194.71.130.119"
+         $an = "139.99.237.34"
+         $ao = "45.32.246.32"
+         $ap = "45.32.246.35"
+         $aq = "45.67.228.99"
+         $ar = "45.67.229.64"
+         $as = "45.67.231.20"
+         $at = "45.137.155.227"
+         $au = "146.185.253.118"
+         $av = "185.228.233.95"
+         $aw = "2400:8907::f03c:92ff:fe39:d4db"
+         $ax = "172.105.173.41"
+       condition: any of them
+      }
+sources:
+  - query: |
+      LET _ <= log(message="Scanning for IIS logs in glob <cyan>" + IISLogFiles)
+      LET files = SELECT FullPath FROM glob(globs=IISLogFiles)
+      LET lines = SELECT * FROM foreach(row=files,
+      query={
+          SELECT Line, FullPath FROM parse_lines(filename=FullPath)
+      })
+      SELECT * FROM foreach(row=lines,
+      query={
+          SELECT str(str=String.Data) AS Hit, Line, FullPath
+          FROM yara(files=Line, accessor="data", key="A", rules=YaraRule)
+      })
+reports:
+  - type: CLIENT
+    template: |
+      # Suspicious IIS Log Entries
+
+      {{ .Description }}
+
+      {{ $rows := Query "SELECT * FROM source() \
+                         LIMIT 1" | Expand }}
+      {{ if $rows }}
+
+      ## Summary
+
+      The presence of these events does not immediately mean compromise but rather may be an attempted attack. This also has the potential to be a false positive but should definitely be investigated to make sure it is not indicative of an attempted compromise.
+
+      If you need additional information about this detection or assistance with interpreting these results, please refer to our [wiki](https://github.com/CCXLabs/CCXDigger/wiki/IIS-Logs-%5B0.1%5D).
+
+        <div role="button" class="btn btn-primary btn-block row collapsible">View Details</div>
+        <div class="collapse row"><div class="card card-body overflow-auto">
+        {{ Query "SELECT * FROM source()" | Table }}
+        </div></div>
+
+      {{ end }}

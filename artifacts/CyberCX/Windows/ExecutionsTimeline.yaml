@@ -1,0 +1,188 @@
+name: Packs.CyberCX.Windows.ExecutionsTimeline
+description: |
+    This artifact is intended to provide a summary of programs run on the computer to assist in investigation of contextual information. It is also intended to give some assistance in interpreting this information. **Only a portion of the full results will be displayed**. However the source data containing all the hits for each of these artifacts is available in a compressed format in the .zip file accompanying this report.
+    
+    Instructions are provided on the [wiki](https://github.com/CCXLabs/CCXLabsVelociraptor/wiki/Program-Execution-%5B0.1%5D) which can assist with interpreting some of these results, however please note that:
+
+    * Each computer and network will vary wildly in terms of what programs should be run
+    * Some programs are considered high risk in some environments but not in others
+    * One program being executed may appear in multiple different artefacts - multiple records of execution at around the same time likely refer to the same program
+    * This artifact doesn't cover all possible methods of compromise so a computer can still be compromised even if no meaningful results are identified
+
+    ## Reviewing full results
+
+    Artifacts will only display data when data for that artifact is available. Additionally, artifacts are restricted to displaying 50 rows only. Any more than that are available in the .zip file accompanying this report, in a .csv file named after the artifact.
+
+    If you want to review the full results beyond the first 50, take the following actions:
+
+    * Extract the compressed .zip file into a folder
+    * Go inside the decompressed folder to the path *Collection-(TargetComputer)-date-time\Packs.CyberCX.Windows.ExecutionsTimeline\(ArtifactType)*
+    * Open the .json file corresponding to the artifact you want to investigate
+        * This can be done at a basic level in a text editor, or with any number of free or paid tools for editing .JSON files available online.
+    * Search through the results and perform any checks on them as desired, considering the advice above and specific to that artifact
+
+precondition: SELECT OS From info() where OS = 'windows'
+
+sources:
+  - name: UserAssist
+    queries:
+      - SELECT * FROM Artifact.Windows.Registry.UserAssist()
+    description: One of a collection of records of programs run on a computer. UserAssist indicates programs with a graphical user interface (*GUI*) that have been executed interactively by a user.
+
+  - name: Timeline
+    queries:
+      - SELECT * FROM Artifact.Windows.Forensics.Timeline()
+    description: One of a collection of records of programs run on a computer. The Windows Timeline indicates programs that have been executed interactively by users, including when the user was using that program.
+
+  - name: RecentApps
+    queries:
+      - SELECT * FROM Artifact.Windows.Forensics.RecentApps()
+    description: One of a collection of records of programs run on a computer. RecentApps indicates programs that have recently been executed interactively by a user.
+
+  - name: ShimCache
+    queries:
+      - SELECT * FROM Artifact.Windows.Registry.AppCompatCache()
+    description: One of a collection of records of programs run on a computer. ShimCache records programs executed by a user or in an automated fashion, or programs in directories opened by a user.
+
+  - name: Prefetch
+    queries:
+      - SELECT * FROM Artifact.Windows.Forensics.Prefetch()
+    description: One of a collection of records of programs run on a computer. Prefetch indicates programs executed by a user or in an automated fashion, and records several historical execution dates.
+
+  - name: SRUM
+    queries:
+    - SELECT * FROM Artifact.Windows.Forensics.SRUM(source="Execution Stats")
+    description: One of a collection of records of programs run on a computer. The SRUM database contains programs executed on a computer and details about resource and network usage for those programs.
+
+reports:
+  - type: CLIENT
+    template: |
+        # Program Execution History
+
+        {{ .Description }}
+
+        {{ $rows := Query "SELECT * FROM source(source='UserAssist') LIMIT 1" | Expand }}
+        {{ if $rows }}
+
+        ## UserAssist
+
+          <div role="button" class="btn btn-primary btn-block row collapsible">View Details</div>
+          <div class="collapse row"><div class="card card-body overflow-auto">
+
+        UserAssist is a record of programs run interactively by users, specifically those which contain a Graphical User Interface (GUI). Most programs recorded in this section would have been double clicked on by a user and opened on their Desktop. This artifact also records link files with the same timestamps as these executables, which when present indicate one of these programs was opened by a shortcut such as one on the user's Desktop.
+
+        This artifact is most useful for identifying malicious activity performed by compromised user accounts.
+
+        Only the top 50 results are displayed here, with the rest of the results available in the full collection.
+        
+        Full information about interpreting these results is available on the [wiki](https://github.com/CCXLabs/CCXDigger/wiki/Program-Execution-%5B0.1%5D).
+
+          {{ Query "SELECT * FROM source(source='UserAssist') LIMIT 50" | Table }}</div>
+          </div>
+
+        {{ end }}
+
+        {{ $rows := Query "SELECT * FROM source(source='Prefetch') LIMIT 1" | Expand }}
+        {{ if $rows }}
+
+        ## Prefetch
+
+          <div role="button" class="btn btn-primary btn-block row collapsible">View Details</div>
+          <div class="collapse row"><div class="card card-body overflow-auto">
+
+        Prefetch is a record of recent programs run, created for optimisation of Windows. Due to its purpose, Prefetch also stores details of the program such as modules loaded on program startup, which while useful for deeper investigation of a program aren't of great concern for the initial analysis steps we recommend you take. Events in this artifact also aren't associated with particular user accounts, so malicious activity here will have to have association with a compromised account confirmed elsewhere.
+
+        Prefetch records recent execution dates of programs, with more dates being stored than other techniques. This means that it is particularly useful for identifying repeated usage of programs, such as many calls being made to PING.EXE, which could indicate reconnaissance.
+
+        This artifact is not available on servers unless it has been enabled in configuration or group policy.
+
+        Only the top 50 results are displayed here, with the rest of the results available in the full collection.
+        
+        Full information about interpreting these results is available on the [wiki](https://github.com/CCXLabs/CCXDigger/wiki/Program-Execution-%5B0.1%5D).
+
+          {{ Query "SELECT * FROM source(source='Prefetch') LIMIT 50" | Table }}</div>
+          </div>
+
+        {{ end }}
+
+        {{ $rows := Query "SELECT * FROM source(source='Shimcache') LIMIT 1" | Expand }}
+        {{ if $rows }}
+
+        ## Shimcache
+
+          <div role="button" class="btn btn-primary btn-block row collapsible">View Details</div>
+          <div class="collapse row"><div class="card card-body overflow-auto">
+
+        Shimcache is a record of programs present on the system prior to the previous shutdown, designed for compatibility tracking. This record rolls over as new programs are loaded but typically stores a fair duration of logs, making it useful to identify historical programs as well as recent ones.
+
+        Unlike other methods available here, presence of an executable in Shimcache does not specifically mean execution, only if the "execution flag" in the entry is set. If this flag is not set it does mean that the executable file was present in the specified location.
+
+        Only the top 50 results are displayed here, with the rest of the results available in the full collection.
+        
+        Full information about interpreting these results is available on the [wiki](https://github.com/CCXLabs/CCXDigger/wiki/Program-Execution-%5B0.1%5D).
+
+          {{ Query "SELECT * FROM source(source='Shimcache') LIMIT 50" | Table }}</div>
+          </div>
+
+        {{ end }}
+
+        {{ $rows := Query "SELECT * FROM source(source='SRUM') LIMIT 1" | Expand }}
+        {{ if $rows }}
+
+        ## SRUM
+
+          <div role="button" class="btn btn-primary btn-block row collapsible">View Details</div>
+          <div class="collapse row"><div class="card card-body overflow-auto">
+
+        The System Resource Usage Monitor (SRUM) database is a database kept by Windows on the system resources of previously used programs. Some of this information is provided to the user in the App History section of the Windows Task Manager. This can be used to identify programs which executed, how long they ran for, and other details such as how much data they communicated over the network.
+
+        This feature is only available on computers with operating system versions of Windows 8 or newer, or equivalent Windows Server versions.
+
+        Only the top 50 results are displayed here, with the rest of the results available in the full collection.
+        
+        Full information about interpreting these results is available on the [wiki](https://github.com/CCXLabs/CCXDigger/wiki/Program-Execution-%5B0.1%5D).
+
+          {{ Query "SELECT * FROM source(source='SRUM') LIMIT 50" | Table }}</div>
+          </div>
+
+        {{ end }}
+
+        {{ $rows := Query "SELECT * FROM source(source='RecentApps') LIMIT 1" | Expand }}
+        {{ if $rows }}
+
+        ## RecentApps
+
+          <div role="button" class="btn btn-primary btn-block row collapsible">View Details</div>
+          <div class="collapse row"><div class="card card-body overflow-auto">
+
+        RecentApps is a record of programs run by users. This is a newer artifact and is not as extensively researched as other sources of program execution. However one thing which is available in this artifact which may not be in others is a launch count, to indicate how many times a specific program has been run by each user.
+
+        Only the top 50 results are displayed here, with the rest of the results available in the full collection.
+        
+        Full information about interpreting these results is available on the [wiki](https://github.com/CCXLabs/CCXDigger/wiki/Program-Execution-%5B0.1%5D).
+
+          {{ Query "SELECT * FROM source(source='RecentApps') LIMIT 50" | Table }}</div>
+          </div>
+
+        {{ end }}
+
+        {{ $rows := Query "SELECT * FROM source(source='Timeline') LIMIT 1" | Expand }}
+        {{ if $rows }}
+
+        ## Timeline
+
+          <div role="button" class="btn btn-primary btn-block row collapsible">View Details</div>
+          <div class="collapse row"><div class="card card-body overflow-auto">
+
+        A new feature added in Windows 10 was a timeline of recent activity, both file and program related. This was added on the taskbar right next to the start menu. This tracks programs that were executed by users in the Graphical User Interface (GUI), similarly to some other artifacts. This artifact however does not record certain background processes, and can be useful for more targeted identification of what programs were manually opened by a user at a specific time. Under certain circumstances it may also provide more detailed information about what the user was doing in those programs.
+
+        This feature is only available on computers with an operating system of at least Windows 10. It is not available by default on equivalent Windows Server operating systems, although it could be enabled through configuration.
+
+        Only the top 50 results are displayed here, with the rest of the results available in the full collection.
+        
+        Full information about interpreting these results is available on the [wiki](https://github.com/CCXLabs/CCXDigger/wiki/Program-Execution-%5B0.1%5D).
+
+          {{ Query "SELECT * FROM source(source='Timeline') LIMIT 50" | Table }}</div>
+          </div>
+
+        {{ end }}

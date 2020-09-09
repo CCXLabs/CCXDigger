@@ -1,0 +1,35 @@
+name: Packs.CyberCX.Windows.ServiceEventLogs
+description: |
+  Services are an inbuilt Windows feature which allow programs to run on computers between restarts. They are often abused by malware to persist between computer restarts. This artifact searches for a service previously created to run the Windows Command Prompt. This activity is typical of many post-exploitation tools, including one known as smbexec.
+
+sources:
+  - query: |
+      SELECT * FROM Artifact.Windows.EventLogs.ServiceCreationComspec(
+          SearchVSS=TRUE)
+
+reports:
+  - type: CLIENT
+    template: |
+      # Suspicious Service Registration
+
+      {{ .Description }}
+
+      {{ $rows := Query "SELECT * FROM source() \
+                         LIMIT 1" | Expand }}
+
+      {{ if $rows }}
+
+      ## Summary
+
+      The Windows System event log (`C:\Windows\System32\winevt\logs\System.evtx`) was searched for any events which would be indicative of services being created referring to the %COMSPEC% environment variable. At least one such event was identified. These services may no longer exist in the current environment but did at some point previously.
+
+      This detection does not necessarily indicate compromise and may be a false positive. Particularly there is potential that this is administrative activity.
+      
+      If you need additional information about this detection or assistance with interpeting the results, please refer to our [Wiki](https://github.com/CCXLabs/CCXDigger/wiki/Service-Event-Logs-%5B0.1%5D).
+
+        <div role="button" class="btn btn-primary btn-block row collapsible">View Details</div>
+        <div class="collapse row"><div class="card card-body overflow-auto">
+        {{ Query "SELECT * FROM source()" | Table }}
+        </div></div>
+
+      {{ end }}
