@@ -1,25 +1,19 @@
 name: Packs.CyberCX.Windows.ExecutionsTimeline
 description: |
-    This artifact is intended to provide a summary of programs run on the computer to assist in investigation of contextual information. It is also intended to give some assistance in interpreting this information. **Only a portion of the full results will be displayed**. However the source data containing all the hits for each of these artifacts is available in a compressed format in the .zip file accompanying this report.
+    This artifact provides information about programs run on the computer. The results are obtained from several data sources, including UserAssist, Windows Timeline, RecentApps, Shimcache, Prefetch and SRUM database.
     
-    Instructions are provided on the [wiki](https://github.com/CCXLabs/CCXLabsVelociraptor/wiki/Program-Execution-%5B0.1%5D) which can assist with interpreting some of these results, however please note that:
-
-    * Each computer and network will vary wildly in terms of what programs should be run
-    * Some programs are considered high risk in some environments but not in others
-    * One program being executed may appear in multiple different artefacts - multiple records of execution at around the same time likely refer to the same program
-    * This artifact doesn't cover all possible methods of compromise so a computer can still be compromised even if no meaningful results are identified
+    Please refer to the [wiki](https://github.com/CCXLabs/CCXLabsVelociraptor/wiki/Program-Execution-%5B0.1%5D) for more information to assist with interpreting these results. We note that each computer and network will vary significantly in what programs are authorised, so careful review of these results should be performed to identify any suspicious programs for the computer being scanned.
 
     ## Reviewing full results
 
-    Artifacts will only display data when data for that artifact is available. Additionally, artifacts are restricted to displaying 50 rows only. Any more than that are available in the .zip file accompanying this report, in a .csv file named after the artifact.
+    Each list below shows the results from examination of a single data source. A single execution may therefore appear in multiple lists. While this creates duplication, examining multiple data sources allows for building a richer profile of program execution, since different data sources record different information about program execution. Note also that some data sources may not be present or populated, which will result in an empty list below.
+    
+    Each list is restricted to displaying 50 rows, with more information available in the ZIP file accompanying this report, in a CSV file named after the data source. To review the full results, simply:
 
-    If you want to review the full results beyond the first 50, take the following actions:
-
-    * Extract the compressed .zip file into a folder
-    * Go inside the decompressed folder to the path *Collection-(TargetComputer)-date-time\Packs.CyberCX.Windows.ExecutionsTimeline\(ArtifactType)*
-    * Open the .json file corresponding to the artifact you want to investigate
-        * This can be done at a basic level in a text editor, or with any number of free or paid tools for editing .JSON files available online.
-    * Search through the results and perform any checks on them as desired, considering the advice above and specific to that artifact
+    * Extract the ZIP file into a folder
+    * In the decompressed folder, go to the path *Collection-(TargetComputer)-date-time\Packs.CyberCX.Windows.ExecutionsTimeline\(ArtifactType)*
+    * Open the JSON file corresponding to the data source you want to investigate, using a text editor or JSON tool of your choice
+    * Search through the results and perform any further checks as needed.
 
 precondition: SELECT OS From info() where OS = 'windows'
 
@@ -27,32 +21,32 @@ sources:
   - name: UserAssist
     queries:
       - SELECT * FROM Artifact.Windows.Registry.UserAssist()
-    description: One of a collection of records of programs run on a computer. UserAssist indicates programs with a graphical user interface (*GUI*) that have been executed interactively by a user.
+    description: One of several data sources showing programs run on a computer. UserAssist indicates programs with a graphical user interface (*GUI*) that have been executed interactively by a user.
 
   - name: Timeline
     queries:
       - SELECT * FROM Artifact.Windows.Forensics.Timeline()
-    description: One of a collection of records of programs run on a computer. The Windows Timeline indicates programs that have been executed interactively by users, including when the user was using that program.
+    description: One of several data sources showing programs run on a computer. The Windows Timeline indicates programs that have been executed interactively by users, including when it was used.
 
   - name: RecentApps
     queries:
       - SELECT * FROM Artifact.Windows.Forensics.RecentApps()
-    description: One of a collection of records of programs run on a computer. RecentApps indicates programs that have recently been executed interactively by a user.
+    description: One of several data sources showing programs run on a computer. RecentApps indicates programs that have recently been executed interactively by a user.
 
   - name: ShimCache
     queries:
       - SELECT * FROM Artifact.Windows.Registry.AppCompatCache()
-    description: One of a collection of records of programs run on a computer. ShimCache records programs executed by a user or in an automated fashion, or programs in directories opened by a user.
+    description: One of several data sources showing programs run on a computer. ShimCache records programs executed by a user or in an automated fashion, or programs in directories opened by a user.
 
   - name: Prefetch
     queries:
       - SELECT * FROM Artifact.Windows.Forensics.Prefetch()
-    description: One of a collection of records of programs run on a computer. Prefetch indicates programs executed by a user or in an automated fashion, and records several historical execution dates.
+    description: One of several data sources showing programs run on a computer. Prefetch indicates programs executed by a user or in an automated fashion, and records several historical execution dates.
 
   - name: SRUM
     queries:
     - SELECT * FROM Artifact.Windows.Forensics.SRUM(source="Execution Stats")
-    description: One of a collection of records of programs run on a computer. The SRUM database contains programs executed on a computer and details about resource and network usage for those programs.
+    description: One of several data sources showing programs run on a computer. The SRUM database contains programs executed on a computer and details about resource and network usage for those programs.
 
 reports:
   - type: CLIENT
@@ -69,13 +63,13 @@ reports:
           <div role="button" class="btn btn-primary btn-block row collapsible">View Details</div>
           <div class="collapse row"><div class="card card-body overflow-auto">
 
-        UserAssist is a record of programs run interactively by users, specifically those which contain a Graphical User Interface (GUI). Most programs recorded in this section would have been double clicked on by a user and opened on their Desktop. This artifact also records link files with the same timestamps as these executables, which when present indicate one of these programs was opened by a shortcut such as one on the user's Desktop.
+        UserAssist is a record of programs run interactively by users, specifically those which use a Graphical User Interface (GUI). Where link files are shown, often with the same timestamps as the executables, this indicates a program opened by a shortcut.
 
-        This artifact is most useful for identifying malicious activity performed by compromised user accounts.
+        This data souce is particularly useful for identifying GUI programs (including shells such as the Command Prompt and PowerShell) launched by compromised user accounts.
 
         Only the top 50 results are displayed here, with the rest of the results available in the full collection.
         
-        Full information about interpreting these results is available on the [wiki](https://github.com/CCXLabs/CCXDigger/wiki/Program-Execution-%5B0.1%5D).
+        Full information on interpreting these results, see the CCX Digger [wiki](https://github.com/CCXLabs/CCXDigger/wiki/Program-Execution-%5B0.1%5D).
 
           {{ Query "SELECT * FROM source(source='UserAssist') LIMIT 50" | Table }}</div>
           </div>
@@ -90,11 +84,11 @@ reports:
           <div role="button" class="btn btn-primary btn-block row collapsible">View Details</div>
           <div class="collapse row"><div class="card card-body overflow-auto">
 
-        Prefetch is a record of recent programs run, created for optimisation of Windows. Due to its purpose, Prefetch also stores details of the program such as modules loaded on program startup, which while useful for deeper investigation of a program aren't of great concern for the initial analysis steps we recommend you take. Events in this artifact also aren't associated with particular user accounts, so malicious activity here will have to have association with a compromised account confirmed elsewhere.
+        Prefetch is another data source which records the execution of programs, both through the GUI and other means. Due to its purpose (optimsation of program execution), Prefetch also stores details of modules loaded, which may be useful for deeper investigation, but may not be relevent for the initial analysis recommended here. Prefetch entries are not associated with user accounts, so analysis of other data sources is required to link any malicious activity with the accounts used to execute them.
 
-        Prefetch records recent execution dates of programs, with more dates being stored than other techniques. This means that it is particularly useful for identifying repeated usage of programs, such as many calls being made to PING.EXE, which could indicate reconnaissance.
+        Prefetch provides an execution count, and the timestamps of last execution and some previous executions, which can be useful for profiling the repeated use of suspicious programs.
 
-        This artifact is not available on servers unless it has been enabled in configuration or group policy.
+        This artifact is not available on servers unless it has been enabled in configuration or Group Policy.
 
         Only the top 50 results are displayed here, with the rest of the results available in the full collection.
         
@@ -113,9 +107,9 @@ reports:
           <div role="button" class="btn btn-primary btn-block row collapsible">View Details</div>
           <div class="collapse row"><div class="card card-body overflow-auto">
 
-        Shimcache is a record of programs present on the system prior to the previous shutdown, designed for compatibility tracking. This record rolls over as new programs are loaded but typically stores a fair duration of logs, making it useful to identify historical programs as well as recent ones.
+        The Shimcache mechanism provides compatibility tracking, providing a record of programs present on the system. Shimcache records (in Registries on disk) are written on reboot or shutdown, meaning the entries shown here are for the period before this last occured on this system. Shimcache record roll over as new programs are loaded, but typically store a fair duration of logs, making it useful to identify historical programs as well as recent ones.
 
-        Unlike other methods available here, presence of an executable in Shimcache does not specifically mean execution, only if the "execution flag" in the entry is set. If this flag is not set it does mean that the executable file was present in the specified location.
+        Unlike other findings shown here, presence of an executable in Shimcache does not specifically mean execution, unless the "execution flag" in the entry is set. If this flag is not set, the executable file was still present in the specified location.
 
         Only the top 50 results are displayed here, with the rest of the results available in the full collection.
         
@@ -134,9 +128,9 @@ reports:
           <div role="button" class="btn btn-primary btn-block row collapsible">View Details</div>
           <div class="collapse row"><div class="card card-body overflow-auto">
 
-        The System Resource Usage Monitor (SRUM) database is a database kept by Windows on the system resources of previously used programs. Some of this information is provided to the user in the App History section of the Windows Task Manager. This can be used to identify programs which executed, how long they ran for, and other details such as how much data they communicated over the network.
+        The System Resource Usage Monitor (SRUM) is a database maintained by Windows to track resource usage by programs. Some of this information is provided to the user in the App History section of the Windows Task Manager. This can be used to identify programs which executed, how long they ran and how much data they transmitted over the network.
 
-        This feature is only available on computers with operating system versions of Windows 8 or newer, or equivalent Windows Server versions.
+        SRUM is only available in Windows 8 and above, and equivalent Windows Server versions.
 
         Only the top 50 results are displayed here, with the rest of the results available in the full collection.
         
@@ -155,7 +149,7 @@ reports:
           <div role="button" class="btn btn-primary btn-block row collapsible">View Details</div>
           <div class="collapse row"><div class="card card-body overflow-auto">
 
-        RecentApps is a record of programs run by users. This is a newer artifact and is not as extensively researched as other sources of program execution. However one thing which is available in this artifact which may not be in others is a launch count, to indicate how many times a specific program has been run by each user.
+        RecentApps is a record of programs run by users. This is a newer artifact and is not as extensively researched as other sources of program execution. RecentApps also provides a launch count per user, which can be valuable for profiling execution history.
 
         Only the top 50 results are displayed here, with the rest of the results available in the full collection.
         
@@ -174,9 +168,9 @@ reports:
           <div role="button" class="btn btn-primary btn-block row collapsible">View Details</div>
           <div class="collapse row"><div class="card card-body overflow-auto">
 
-        A new feature added in Windows 10 was a timeline of recent activity, both file and program related. This was added on the taskbar right next to the start menu. This tracks programs that were executed by users in the Graphical User Interface (GUI), similarly to some other artifacts. This artifact however does not record certain background processes, and can be useful for more targeted identification of what programs were manually opened by a user at a specific time. Under certain circumstances it may also provide more detailed information about what the user was doing in those programs.
+        The Timeline is a new feature added in Windows 10, recording recent program and file activity. It can be accessed on the taskbar, next to the Start menu. The Timeline tracks execution of GUI programs, similarly to some other artifacts, however the Timeline does not record certain background processes. It can be useful for more targeted identification of programs that were manually executed at a specific time. Under certain circumstances, it also provides more detailed information about what the user was doing in some programs.
 
-        This feature is only available on computers with an operating system of at least Windows 10. It is not available by default on equivalent Windows Server operating systems, although it could be enabled through configuration.
+        This feature is only available on computers running Windows 10. It is not available by default on equivalent Windows Server operating systems, although it can be enabled.
 
         Only the top 50 results are displayed here, with the rest of the results available in the full collection.
         
