@@ -1,6 +1,6 @@
 name: Packs.CyberCX.Windows.ScheduledTasks
 description: |
-  A [scheduled task](https://blog.malwarebytes.com/cybercrime/2015/03/scheduled-tasks/) allows users to set commands to be executed at a specified time. These are often used by attackers to gain persistence on a system. Certain potentially malicious tasks running [batch files](https://fileinfo.com/extension/bat) (.bat) were found.
+A [scheduled task](https://blog.malwarebytes.com/cybercrime/2015/03/scheduled-tasks/) allows users to set commands to be executed at a specified time. These are often used by attackers to gain persistence on a system, either locally or across a network. A common attack technique also involves creating malicious tasks which execute Windows [batch files](https://fileinfo.com/extension/bat).
 
 precondition: SELECT OS From info() where OS = 'windows'
 
@@ -13,7 +13,6 @@ sources:
      SELECT *, upload(file=Command) AS Upload
      FROM Artifact.Windows.System.TaskScheduler()
      WHERE Command =~ ".bat$"
-
 
 reports:
   - type: CLIENT
@@ -29,7 +28,7 @@ reports:
 
       ## Summary
 
-      A suspicious scheduled task built to execute a batch file, as indicated in the parameter "Command", was identified. This is an indication of compromise, but may not definitively be malicious. This file has been collected by Velociraptor.
+      A suspicious scheduled task was found, which executes a batch file, as indicated in the parameter "Command". This should be inspected further to determine whether it is malicious, including checking the metadata of the scheduled task, the location and metadata of the batch file, and the commands it runs. 
       
       If you need additional information about this detection or assistance with interpeting the results, please refer to our [Wiki](https://github.com/CCXLabs/CCXDigger/wiki/Scheduled-Tasks-%5B0.1%5D).
       
