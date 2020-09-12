@@ -21,7 +21,7 @@ The CCX Digger project is designed to help Australian organisations determine if
 </div>
 
 # Quick Start
-CCX Digger can perform scans on both individual systems and across an entire network. A network connection is **not** required to use this tool. A HTML report will be generated 
+CCX Digger can perform scans on both individual systems and across an entire network. A network connection is **not** required to use this tool. A HTML report will be generated.  
 ## Scanning an individual system
 1.	Go to the [Downloads](https://github.com/CCXLabs/CCXDigger/wiki/Downloads) page to obtain the latest CCX Digger executable, and open with Administrator privileges. CCX Digger can be run from any drive, including a removable drive or network share. 
 2.	After completing the scan, an HTML report is created within the same folder. This contains any findings from the scan, plus details on what each finding means. 
