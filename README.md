@@ -28,7 +28,9 @@ CCX Digger can perform scans on both individual systems and across an entire net
 ## Scanning an individual system
 
 1.	Go to the [Downloads](https://github.com/CCXLabs/CCXDigger/wiki/Downloads) page to obtain the latest CCX Digger executable and checksum. Verify the download, then execute through the Command Prompt with Administrator privileges. CCX Digger can be run from any drive, including a removable drive or network share. It requires no installation and has no external dependencies. It makes no configuration changes to the system.
+
 2.	After completing the scan, an HTML report is created within the same folder. This contains any findings from the scan, plus details on what each finding means. The HTML report links back to this website for additional information, however no scan data is uploaded and your visits are not recorded by CyberCX. Any relevant items found are copied into a ZIP file, also in the same folder.
+
 3.	Further investigation may be necessary to confirm any findings are indeed malicious. The HTML report will recommend any next steps required.
 
 ## Scanning an entire network
@@ -45,6 +47,7 @@ Detailed installation guides can be found at the [Installation](https://github.c
 **In 2020, specifically within the May to June period, Australia experienced a significant increase in cyber incidents targeting all levels of government and across a wide range of industry sectors. No aspect of Australian society was [untouched](https://www.pm.gov.au/media/statement-malicious-cyber-activity-against-australian-networks). The threat actor combined basic attack techniques with more sophisticated elements that are more difficult to detect. The threat actor is known to leave implants on compromised networks to facilitate re-entry.**
 
 CyberCX’s Digital Forensic & Incident Response (DFIR) team has worked with several clients to detect and respond to these breaches, in collaboration with government agencies and industry partners. Through this work, our DFIR team has produced specific threat intelligence which can quickly and effectively detect the threat actors on systems.
+
 Through CyberCX’s ongoing collaboration with the [Velociraptor Project](www.velocidex.com) (another proud Australian technology innovation) we have developed CCX Digger.
 
 The objectives for CCX Digger is to:
@@ -76,6 +79,6 @@ CyberCX is Australia’s leading force of cyber security professionals, with ove
 * Digital Forensics & Incident Response
 * Education & Training
 
-The CyberCX Digital Forensics & Incident Response teams (DFIR) help our clients to investigate and respond to a broad range of digital forensic investigations and cyber incidents every day. With the largest number of DFIR specialists across Australia, we provide an unmatched depth of technical expertise, industry experience and local resources when and where our clients need us.
+The CyberCX Digital Forensics & Incident Response team (DFIR) helps our clients to investigate and respond to a broad range of digital forensic investigations and cyber incidents every day. With the largest number of DFIR specialists across the region, we provide an unmatched depth of technical expertise, industry experience and local resources when and where our clients need us.
 
-For more details, refer to www.cybercx.com.au 
+For more details, refer to www.cybercx.com.au
