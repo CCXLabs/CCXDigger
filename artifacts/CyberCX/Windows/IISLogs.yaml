@@ -1,6 +1,6 @@
 name: Packs.CyberCX.Windows.IISLogs
 description: |
- These log files detail information on the usage of applications running on web servers hosted via Internet Information Services (IIS). These logs have been searched for suspicious indicators associated with attacker activity.
+These logs record interaction with programs on a web server via the Internet Information Service (IIS). CCX Digger searches these logs for suspicious indicators associated with known threat actor activity, including interaction with 'known bad' IP addresses and use of suspicious command and tools.
 
 precondition: SELECT OS From info() where OS = 'windows'
 
@@ -95,9 +95,9 @@ reports:
 
       ## Summary
 
-      The presence of these events does not immediately mean compromise but rather may be an attempted attack. This also has the potential to be a false positive but should definitely be investigated to make sure it is not indicative of an attempted compromise.
+      Any results on this scan do not immediately indicate successful compromise of the web server. Some results may indicate attempted compromise, while some may also be false positives, especially IP addresses which may also have been legitimate connections. However all positive results should be reviewed further.
 
-      If you need additional information about this detection or assistance with interpreting these results, please refer to our [wiki](https://github.com/CCXLabs/CCXDigger/wiki/IIS-Logs-%5B0.1%5D).
+      Additional information about interpreting results from this detection are provided at the CCX Digger [wiki](https://github.com/CCXLabs/CCXDigger/wiki/IIS-Logs-%5B0.1%5D).
 
         <div role="button" class="btn btn-primary btn-block row collapsible">View Details</div>
         <div class="collapse row"><div class="card card-body overflow-auto">
