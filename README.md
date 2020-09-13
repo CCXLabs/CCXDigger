@@ -27,13 +27,13 @@ CCX Digger can perform scans on both individual systems and across an entire net
 
 ## Scanning an individual system
 
-1. Go to the [Downloads](https://github.com/CCXLabs/CCXDigger/wiki/Downloads) page to obtain the latest CCX Digger executable and verification checksum. Verify the download. 
+1. Go to the [Downloads](https://github.com/CCXLabs/CCXDigger/wiki/Downloads) page to obtain the latest CCX Digger executable and checksum. Verify the download against the checksum. 
 
-2. Execute through the Command Prompt with Administrator privileges. CCX Digger can be run from any drive, including a removable drive or network share. It requires no installation and has no external dependencies. It makes no configuration changes to the system.
+2. Open a Command Prompt with Administrator privileges and run CCX Digger. It can be run from any drive, including a removable drive or network share. It requires no installation and has no external dependencies. It makes no configuration changes to the system.
 
-2. After completing the scan, an HTML report is created within the same folder. This contains any findings from the scan, plus details on what each finding means. The HTML report links back to this website for additional information, however no scan data is uploaded and your visits are not recorded by CyberCX. Any relevant items found are copied into a ZIP file, also in the same folder.
+3. After completing the scan, an HTML report is created within the same folder. This contains any findings from the scan, plus details on what each finding means. The HTML report links back to this website for additional information, however no scan data is uploaded and we do not record your visits to the website. Any relevant items found are copied into a ZIP file, also in the same folder, to assist with further analysis.
 
-3. Further investigation may be necessary to confirm any findings are indeed malicious. The HTML report will recommend any next steps required.
+3. Further investigation may be necessary to confirm if any findings are indeed malicious. The HTML report will recommend any next steps required.
 
 ## Scanning an entire network
 
