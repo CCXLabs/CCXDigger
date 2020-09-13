@@ -83,7 +83,7 @@ The key features of CCX Digger are:
 
 The CyberCX Digital Forensics & Incident Response team (DFIR) helps our clients to investigate and respond to a broad range of digital forensic investigations and cyber incidents every day. With the largest number of DFIR specialists across the region, we provide an unmatched depth of technical expertise, industry experience and local resources when and where our clients need us.
 
-## Warranties and support
+## Support
 
 * Please note that CCX Digger is provided "as is", without any support nor warranties, either expressed or implied.
 * While CyberCX has conducted our own testing of CCX Digger, we provides no guarantees that CCX Digger will work as intended on every computer system.
