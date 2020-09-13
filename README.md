@@ -70,7 +70,7 @@ The key features of CCX Digger are:
 **If you believe your network may be compromised, please contact the CyberCX Digital Forensic & Incident Response team at digger@cybercx.com.au**
 
 ## About CyberCX
-CyberCX is Australia’s leading force of cyber security professionals, with over 500 specialists across Australia, New Zealand, the UK and the USA, providing services across the following practice areas:
+[CyberCX](https://www.cybercx.com.au) is Australia’s leading force of cyber security professionals, with over 500 specialists across Australia, New Zealand, the UK and the USA, providing services across the following practice areas:
 
 * Strategy & Consulting
 * Security Testing & Assurance
@@ -82,8 +82,6 @@ CyberCX is Australia’s leading force of cyber security professionals, with ove
 * Education & Training
 
 The CyberCX Digital Forensics & Incident Response team (DFIR) helps our clients to investigate and respond to a broad range of digital forensic investigations and cyber incidents every day. With the largest number of DFIR specialists across the region, we provide an unmatched depth of technical expertise, industry experience and local resources when and where our clients need us.
-
-For more details, refer to www.cybercx.com.au
 
 ## Warranties and support
 
