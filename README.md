@@ -11,9 +11,9 @@ The CCX Digger project is designed to help Australian organisations determine if
     <thead>
         <tr>
           <th align="center"><a href="https://github.com/CCXLabs/CCXDigger/wiki">Wiki</a></th>
-            <th align="center"><a href="https://github.com/CCXLabs/CCXDigger/wiki/Installation">Usage</a></th>
+          <th align="center"><a href="https://github.com/CCXLabs/CCXDigger/wiki/Installation">Usage</a></th>
           <th align="center"><a href="https://github.com/CCXLabs/CCXDigger/wiki/FAQ">FAQ</a></th>
-            <th align="center"><a href="https://github.com/CCXLabs/CCXDigger/wiki/Acknowledgements">Acknowledgements</a></th>
+          <th align="center"><a href="https://github.com/CCXLabs/CCXDigger/wiki/Acknowledgements">Acknowledgements</a></th>
           <th align="center"><a href="https://github.com/CCXLabs/CCXDigger/wiki/Contribution-Guide">Contribute</a></th>
           <th align="center"><a href="https://github.com/CCXLabs/CCXDigger/wiki/Need-Help%3F">Need Help?</a></th>
         </tr>
@@ -23,7 +23,7 @@ The CCX Digger project is designed to help Australian organisations determine if
 
 # Quick Start
 
-CCX Digger can perform scans on both individual systems and across an entire network. A network connection is **not** required to use this tool. An HTML report will be generated once the scan completes.
+CCX Digger can perform scans on both <bold>individual</bold> systems and across an entire network. A network connection is **not** required to use this tool. An HTML report will be generated once the scan completes.
 
 ## Scanning an individual system
 
