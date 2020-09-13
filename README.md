@@ -6,11 +6,11 @@
 
 The CCX Digger project is designed to help Australian organisations determine if they have been impacted by certain high profile [cyber security incidents](https://www.pm.gov.au/media/statement-malicious-cyber-activity-against-australian-networks). CCX Digger provides sophisticated threat hunting functionality packaged in a simple-to-use tool, allowing users to detect certain attacker activities; **all for free**.
 
+Please refer to the [wiki](https://github.com/CCXLabs/CCXDigger/wiki) for more information about the CCX Digger project, and the tool itself.
+
 # Quick Start
 
 CCX Digger can perform scans on both individual systems and across an entire network. A network connection is **not** required to use this tool. An HTML report will be generated once the scan completes.
-
-Please refer to the [wiki](https://github.com/CCXLabs/CCXDigger/wiki) for more information about the CCX Digger project, and the tool itself.
 
 ## Scanning an individual system
 
