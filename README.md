@@ -85,7 +85,7 @@ The CyberCX Digital Forensics & Incident Response team (DFIR) helps our clients 
 
 For more details, refer to www.cybercx.com.au
 
-Warranties and support
+## Warranties and support
 
 * Please note that CCX Digger is provided "as is", without any support nor warranties, either expressed or implied.
 * While CyberCX has conducted our own testing of CCX Digger, we provides no guarantees that CCX Digger will work as intended on every computer system.
