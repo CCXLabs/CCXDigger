@@ -82,7 +82,8 @@ CyberCX has been a proud collaborator of the Velociraptor project since its earl
 
 * Please note that CCX Digger is provided "as is", without any support nor warranties, either expressed or implied.
 * While CyberCX has conducted our own testing of CCX Digger, we provides no guarantees that CCX Digger will work as intended on every computer system.
-* While execution of CCX Digger should have no noticable effects on a system, CyberCX takes no responsibilies for any adverse effect that its execution may have. Use of CCX Digger is entirely at the user's own risk. If you have concerns, you should first trial CCX Digger on test systems before using more widely.
+* Use of CCX Digger is entirely at the user's own risk. While execution of CCX Digger should have no noticable effects on a system, CyberCX takes no responsibilies for any adverse effect that its execution may have. If you have concerns, you should first trial CCX Digger on test systems before using more widely.
 * While you may contact CyberCX for more information or if you believe that your network is compromised, CyberCX provides no guarantees of what response or support CyberCX will provide.
 * CCX Digger is not intended to find all possible traces of threat actor activities, and all results should be verified as described in the [wiki](https://github.com/CCXLabs/CCXDigger/wiki).
+* While CCX Digger may detect malware used in known attacks, it is **not** an anti-virus solution and is **not** configured to remove potentially malicious files that it finds.
 * While CyberCX has collaborated with various third parties to produce CCX Digger, any references to third parties in CCX Digger, inculding but not limited to within the website, detection artefacts, reports or documentation, are not endorsements of CCX Digger by these third parties.
