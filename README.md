@@ -10,15 +10,15 @@ Please refer to the [wiki](https://github.com/CCXLabs/CCXDigger/wiki) for more i
 
 # Quick Start
 
-CCX Digger can perform scans on both individual systems and across an entire network. A network connection is **not** required to use this tool. An HTML report will be generated once the scan completes.
+CCX Digger can perform scans on both individual systems and across an entire network. A network connection is not required to use this tool. An HTML report will be generated once the scan completes.
 
 ## Scanning an individual system
 
 1. Go to the [Downloads](https://github.com/CCXLabs/CCXDigger/wiki/Downloads) page to obtain the latest CCX Digger executable and checksum. Verify the download against the checksum. 
 
-2. Open a Command Prompt with Administrator privileges and run the CCX Digger executable. It can be run from any drive, including a removable drive or network share. It requires no installation and has no external dependencies. It makes no configuration changes to the system.
+2. Open a **Command Prompt with Administrator privileges** and run the CCX Digger executable. It can be run from any drive, including a removable drive or network share. It requires no installation and has no external dependencies. It makes no configuration changes to the system and should have negligible impact on the system, however please ensure to read the **Warranties** section below.
 
-3. After completing the scan, an HTML report is created within the same folder. This contains any findings from the scan, plus details on what each finding means. The HTML report links back to this website for additional information, however no scan data is uploaded and we do not record your visits to the website. Any relevant items found are copied into a ZIP file, also in the same folder, to assist with further analysis.
+3. After completing the scan, an HTML report is created within the same folder. This contains any findings from the scan, plus details on what each finding means. The HTML report links back to this website for additional information, however no scan data is uploaded and we do not record your visits to the website. Any relevant items found are copied into a ZIP file in the same folder, to assist with further analysis.
 
 3. Further investigation may be necessary to confirm if any findings are indeed malicious. The HTML report will recommend any next steps required.
 
@@ -70,15 +70,6 @@ The key features of CCX Digger are:
 
 The CyberCX Digital Forensics & Incident Response team (DFIR) helps our clients to investigate and respond to a broad range of digital forensic investigations and cyber incidents every day. With the largest number of DFIR specialists across the region, we provide an unmatched depth of technical expertise, industry experience and local resources when and where our clients need us.
 
-## Support
-
-* Please note that CCX Digger is provided "as is", without any support nor warranties, either expressed or implied.
-* While CyberCX has conducted our own testing of CCX Digger, we provides no guarantees that CCX Digger will work as intended on every computer system.
-* While execution of CCX Digger should have no noticable effects on a system, CyberCX takes no responsibilies for any adverse effect that its execution may have. Use of CCX Digger is entirely at the user's own risk. If you have concerns, you should first trial CCX Digger on test systems before using more widely.
-* While you may contact CyberCX for more information or if you believe that your network is compromised, CyberCX provides no guarantees of what response or support CyberCX will provide.
-* CCX Digger is not intended to find all possible traces of threat actor activities, and all results should be verified as described in the [wiki](https://github.com/CCXLabs/CCXDigger/wiki).
-* While CyberCX has collaborated with various third parties to produce CCX Digger, any references to third parties in CCX Digger, inculding but not limited to within the website, detection artefacts, reports or documentation, are not endorsements of CCX Digger by these third parties.
-
 ## About Velociraptor 
 
 [Velociraptor](https://www.velocidex.com) is an endpoint visibility platform developed in Australia, which provides leading capabilities for distributed forensic analysis, endpoint monitoring and the surgical collection of evidence from across networks.  
@@ -86,3 +77,12 @@ The CyberCX Digital Forensics & Incident Response team (DFIR) helps our clients 
 The foundation of Velociraptor is a unique query language named VQL which allows writing specific detection queries, known in Velociraptor as Artefacts, which leverage the underlying Velociraptor functionality and can be easily distributed and shared.
 
 CyberCX has been a proud collaborator of the Velociraptor project since its early days. CCX Digger is yet another example of the benefits of this partnership to the cyber security industry and the communities we protect.
+
+## Warranty
+
+* Please note that CCX Digger is provided "as is", without any support nor warranties, either expressed or implied.
+* While CyberCX has conducted our own testing of CCX Digger, we provides no guarantees that CCX Digger will work as intended on every computer system.
+* While execution of CCX Digger should have no noticable effects on a system, CyberCX takes no responsibilies for any adverse effect that its execution may have. Use of CCX Digger is entirely at the user's own risk. If you have concerns, you should first trial CCX Digger on test systems before using more widely.
+* While you may contact CyberCX for more information or if you believe that your network is compromised, CyberCX provides no guarantees of what response or support CyberCX will provide.
+* CCX Digger is not intended to find all possible traces of threat actor activities, and all results should be verified as described in the [wiki](https://github.com/CCXLabs/CCXDigger/wiki).
+* While CyberCX has collaborated with various third parties to produce CCX Digger, any references to third parties in CCX Digger, inculding but not limited to within the website, detection artefacts, reports or documentation, are not endorsements of CCX Digger by these third parties.
