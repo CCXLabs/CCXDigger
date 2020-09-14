@@ -158,7 +158,7 @@ reports:
                <div class="col">
                  <h1>About</h1>
 
-                 <p>This report shows the results of the CCX Digger tool on the above host at the provided timestamp. The CCX Digger project is designed
+                 <p>This report shows the results from running CCX Digger on the above host at the provided timestamp. The CCX Digger project is designed
                     to help Australian organisations determine if they have been impacted by certain high profile threat actors who have been targetting 
                     Australian organisations. CCX Digger provides focused threat hunting functionality packaged in a simple to use tool, allowing users 
                     to detect specific attacker activities; <b>all for free</b>.
@@ -167,7 +167,7 @@ reports:
                  <div class="alert alert-primary" role="alert">
                    <b>IMPORTANT NOTE</b> – The provided results should always be considered in context, and are not definitive markers of compromise.
                     However, results should be treated with suspicion and subject to further investigation. For more information or advice on further
-                    investigations, please see the <a href="https://github.com/CCXLabs/CCXDigger/wiki">Wiki</a>.
+                    investigations, please see the CCX Digger <a href="https://github.com/CCXLabs/CCXDigger/wiki">wiki</a>.
                  </div>
 
                  <p>For more information on how CCX Digger works, please refer to the project’s <a href="https://github.com/CCXLabs/CCXDigger">GitHub page</a>.</p>
@@ -253,7 +253,7 @@ reports:
                <li><a href="https://www.cybercx.com.au/">CyberCX<a> </li>
                <li><a href="https://www.velocidex.com">Velocidex</a> </li>
              </ul>
-             <p> We also acknowledge contributions by the community in developing these artifacts and supporting this project. Individual contributor's are
+             <p> We also acknowledge contributions by the community in developing these artifacts and supporting this project. Individual contributors are
              acknowledged within each artifact where they contributed. For more information on how you can contribute, see the 
              <a href="https://github.com/CCXLabs/CCXDigger/wiki/Contribution-Guide">Contribution Guide</a>.</p>
            </main>
