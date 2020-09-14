@@ -16,7 +16,7 @@ CCX Digger can perform scans on both individual systems and across an entire net
 
 1. Go to the [Downloads](https://github.com/CCXLabs/CCXDigger/wiki/Downloads) page to obtain the latest CCX Digger executable and checksum. Verify the download against the checksum. 
 
-2. Open a **Command Prompt with Administrator privileges** and run the CCX Digger executable. It can be run from any drive, including a removable drive or network share. It requires no installation and has no external dependencies. It makes no configuration changes to the system and should have negligible impact on the system, however please ensure to read the **Warranties** section below.
+2. Open a **Command Prompt with Administrator privileges** and run the CCX Digger executable. It can be run from any drive, including a removable drive or network share. It requires no installation and has no external dependencies. It makes no configuration changes to the system and should have negligible impact on the system.
 
 3. After completing the scan, an HTML report is created within the same folder. This contains any findings from the scan, plus details on what each finding means. The HTML report links back to this website for additional information, however no scan data is uploaded and we do not record your visits to the website. Any relevant items found are copied into a ZIP file in the same folder, to assist with further analysis.
 
