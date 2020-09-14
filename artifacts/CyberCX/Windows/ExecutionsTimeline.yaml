@@ -84,7 +84,7 @@ reports:
           <div role="button" class="btn btn-primary btn-block row collapsible">View Details</div>
           <div class="collapse row"><div class="card card-body overflow-auto">
 
-        Prefetch is another data source which records the execution of programs, both through the GUI and other means. Due to its purpose (optimsation of program execution), Prefetch also stores details of modules loaded, which may be useful for deeper investigation, but may not be relevent for the initial analysis recommended here. Prefetch entries are not associated with user accounts, so analysis of other data sources is required to link any malicious activity with the accounts used to execute them.
+        Prefetch is another data source which records the execution of programs, both through the GUI and other means. Due to its purpose (optimsation of program execution), Prefetch also stores details of modules loaded, if deeper analysis is required. Prefetch entries are not associated with user accounts, so analysis of other data sources is required to link any malicious activity with the accounts used to execute them.
 
         Prefetch provides an execution count, and the timestamps of last execution and some previous executions, which can be useful for profiling the repeated use of suspicious programs.
 
