@@ -1,6 +1,6 @@
 name: Packs.CyberCX.Windows.IISLogs
 description: |
-These logs record interaction with programs on a web server via the Internet Information Service (IIS). CCX Digger searches these logs for suspicious indicators associated with known threat actor activity, including interaction with 'known bad' IP addresses and use of suspicious command and tools.
+  These logs record interaction with programs on a web server via the Internet Information Service (IIS). CCX Digger searches these logs for suspicious indicators associated with known threat actor activity, including interaction with 'known bad' IP addresses and use of suspicious command and tools.
 
 precondition: SELECT OS From info() where OS = 'windows'
 
