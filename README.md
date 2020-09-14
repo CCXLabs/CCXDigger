@@ -78,7 +78,7 @@ The foundation of Velociraptor is a unique query language named VQL which allows
 
 CyberCX has been a proud collaborator of the Velociraptor project since its early days. CCX Digger is yet another example of the benefits of this partnership to the cyber security industry and the communities we protect.
 
-## Warranty
+## No Support or Warranties
 
 * Please note that CCX Digger is provided "as is", without any support nor warranties, either expressed or implied.
 * While CyberCX has conducted our own testing of CCX Digger, we provides no guarantees that CCX Digger will work as intended on every computer system.
