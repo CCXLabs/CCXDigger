@@ -14,6 +14,7 @@ description: |
 
 tools:
   - name: CCXYaraRules
+    default: https://raw.githubusercontent.com/CCXLabs/CCXDigger/master/yara/Rules.yara
 
 parameters:
     - name: nameRegex
