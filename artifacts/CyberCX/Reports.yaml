@@ -298,18 +298,10 @@ reports:
            {{ end }}{{ end }}
 
            <!-- Footer content. A glossary or reference point may be good here -->
+           <hr />
            <div class="row">
-             <h2>Acknowledgements</h2>
+             <h2>Thank you for using CCX Digger!</h2>
            </div>
-             <p> This project would not be possible without support from the following:
-             </p>
-             <ul>
-               <li><a href="https://www.cybercx.com.au/">CyberCX<a> </li>
-               <li><a href="https://www.velocidex.com">Velocidex</a> </li>
-             </ul>
-             <p> We also acknowledge contributions by the community in developing these artifacts and supporting this project. Individual contributors are
-             acknowledged within each artifact where they contributed. For more information on how you can contribute, please see the
-             <a href="https://github.com/CCXLabs/CCXDigger/wiki/FAQ#how-can-i-contribute">wiki</a>.</p>
            </main>
            <script>
              $(".collapsible").click(function() {
