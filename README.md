@@ -16,7 +16,7 @@ CCX Digger can perform scans on both individual systems and across an entire net
 
 ## Scanning an individual system
 
-1. Go to the [Downloads](https://github.com/CCXLabs/CCXDigger/wiki/Downloads) page to obtain the latest CCX Digger executable and checksum. Verify the download against the checksum. 
+1. Go to the [Downloads](https://github.com/CCXLabs/CCXDigger/wiki/Downloads) page to obtain the latest CCX Digger executable and checksum. Verify the download against the checksum.
 
 2. Open a **Command Prompt with Administrator privileges** and run the CCX Digger executable. It can be run from any drive, including a removable drive or network share. It requires no installation and has no external dependencies. It makes no configuration changes to the system and should have negligible impact on the system.
 
@@ -49,7 +49,7 @@ The objectives for CCX Digger are to:
 
 The key features of CCX Digger are:
 * Full transparency through [free and open source software](https://www.velocidex.com/about/license/)
-* Single executable, which requires no installation and has no external dependencies 
+* Single executable, which requires no installation and has no external dependencies
 * No registration, licenses or dongles required
 * No collection or transmission of scan data outside your network
 * No ‘calling home’ and no external network connections required to perform scans.
@@ -70,7 +70,7 @@ The key features of CCX Digger are:
 
 The CyberCX Digital Forensics & Incident Response team (DFIR) helps our clients to investigate and respond to a broad range of digital forensic investigations and cyber incidents every day. With the largest number of DFIR specialists across the region, we provide an unmatched depth of technical expertise, industry experience and local resources when and where our clients need us.
 
-## About Velociraptor 
+## About Velociraptor
 
 [Velociraptor](https://www.velocidex.com) is an endpoint visibility platform developed in Australia, which provides leading capabilities for distributed digital forensic analysis, endpoint monitoring and the surgical collection of evidence from across networks.  
 
@@ -81,11 +81,11 @@ CyberCX has been a proud collaborator of the Velociraptor project since its earl
 ## Other Conditions
 
 Please note the following conditions when using CCX Digger:
-* CCX Digger is provided "as is", without any support nor warranties, either expressed or implied.
+* CCX Digger is provided "as is". CyberCX makes no warranties with respect to CCX Digger and disclaims all implied warranties, including without limitation warranties of merchantability, fitness for a particular purpose, non-infringement of third party rights, effectiveness, usefulness, reliability or arising from a course of dealing or usage of trade, and any warranties of non-infringement. CyberCX will have no liability whatsoever for any use of CCX Digger, including for indirect, special or consequential loss or damages.
 * While CyberCX has conducted our own testing of CCX Digger, we provide no guarantees that CCX Digger will work as intended on every computer system.
 * Use of CCX Digger is entirely at the user's own risk. Execution of CCX Digger does not make any direct changes to a system other than producing a report and collecting source files to support further analysis, and should have negligible performance impacts. CyberCX takes no responsibilies for any adverse effect that its execution may have. If you have concerns, you should first trial CCX Digger on test systems before using more widely.
 * While you may contact CyberCX for more information or if you believe that your network is compromised, CyberCX provides no guarantees of what response or support CyberCX will provide.
 * CCX Digger is not intended to find all possible traces of threat actor activities. All results should be verified through further investigation, as described in the [wiki](https://github.com/CCXLabs/CCXDigger/wiki).
 * While CCX Digger may detect malware and other attacker activities, it is **not** an anti-virus solution and is **not** configured to remove malicious files, nor block malicious activities that it finds.
 * While CyberCX has collaborated with various third parties to produce CCX Digger, any references to third parties in CCX Digger, inculding but not limited to within the website, detection artefacts, reports and documentation, are not endorsements of CCX Digger by these third parties.
-* CyberCX has taken reasonable steps to respect and maintain the ownership of intellectual property and threat intelligence used in the development of CCX Digger. This includes abiding by the terms of relevant software licenses and obtaining consent for the use of threat intelligence in this way. Components from the Velociraptor project are made available under the terms of its [GNU Affero General Public License](https://www.velocidex.com/about/license/).
+* CyberCX has taken reasonable steps to respect and maintain the ownership of intellectual property and threat intelligence used in the development of CCX Digger. This includes abiding by the terms of relevant software licenses and obtaining consent for the use of threat intelligence in this way. Components from the Velociraptor project are made available under the terms of its [GNU Affero General Public License](https://www.velocidex.com/about/license/) and all use of CCX Digger must also comply with this license.
