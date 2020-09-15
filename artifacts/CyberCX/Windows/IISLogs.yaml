@@ -97,7 +97,7 @@ reports:
 
       Any results on this scan do not immediately indicate successful compromise of the web server. Some results may indicate attempted compromise, while some may also be false positives, especially IP addresses which may also have been legitimate connections. However all positive results should be reviewed further.
 
-      Additional information about interpreting results from this detection are provided at the CCX Digger [wiki](https://github.com/CCXLabs/CCXDigger/wiki/IIS-Logs-%5B0.1%5D).
+      Additional information about interpreting results from this detection are provided at the CCX Digger [wiki](https://github.com/CCXLabs/CCXDigger/wiki/Microsoft-IIS-Logs-%5B0.1%5D).
 
         <div role="button" class="btn btn-danger btn-block row collapsible">View Details - Suspicious IIS Log Entries</div>
         <div class="collapse row"><div class="card card-body overflow-auto">

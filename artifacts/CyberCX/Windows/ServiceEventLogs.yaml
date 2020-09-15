@@ -25,7 +25,7 @@ reports:
 
       This detection does not necessarily indicate compromise and may be a false positive. Particularly there is potential that this is administrative activity.
 
-      If you need additional information about this detection or assistance with interpeting the results, please refer to our [Wiki](https://github.com/CCXLabs/CCXDigger/wiki/Service-Event-Logs-%5B0.1%5D).
+      If you need additional information about this detection or assistance with interpeting the results, please refer to our [Wiki](https://github.com/CCXLabs/CCXDigger/wiki/Windows-Service-Event-Logs-%5B0.1%5D).
 
         <div role="button" class="btn btn-danger btn-block row collapsible">View Details - Suspicious Service Registration</div>
         <div class="collapse row"><div class="card card-body overflow-auto">

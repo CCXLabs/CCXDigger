@@ -2,7 +2,7 @@ name: Packs.CyberCX.Windows.ExecutionsTimeline
 description: |
     This artifact provides information about programs run on the computer. The results are obtained from several data sources, including UserAssist, Windows Timeline, RecentApps, Shimcache, Prefetch and SRUM database.
     
-    Please refer to the [wiki](https://github.com/CCXLabs/CCXLabsVelociraptor/wiki/Program-Execution-%5B0.1%5D) for more information to assist with interpreting these results. We note that each computer and network will vary significantly in what programs are authorised, so careful review of these results should be performed to identify any suspicious programs for the computer being scanned.
+    Please refer to the [wiki](https://github.com/CCXLabs/CCXDigger/wiki/Program-Execution-%5B0.1%5D) for more information to assist with interpreting these results. We note that each computer and network will vary significantly in what programs are authorised, so careful review of these results should be performed to identify any suspicious programs for the computer being scanned.
 
     ## Reviewing full results
 

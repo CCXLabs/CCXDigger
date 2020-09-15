@@ -1,7 +1,7 @@
 name: Packs.CyberCX.Windows.WebshellSearch
 description: |
   This search aims to identify potentially malicious files that may be indicative of a [webshell](https://www.cyber.gov.au/acsc/view-all-content/threats/web-shell-malware). Specifically, key words and phrases will be searched for across all files with extensions of .php, .txt, .py, .aspx, or .resx.
-  More information about how to interpret the results of this search are available on our [wiki](https://github.com/CCXLabs/CCXDigger/wiki/Webshell-%5B0.1%5D).
+  More information about how to interpret the results of this search are available on our [wiki](https://github.com/CCXLabs/CCXDigger/wiki/Webshells-%5B0.1%5D).
 
 tools:
   - name: CCXYaraRules
