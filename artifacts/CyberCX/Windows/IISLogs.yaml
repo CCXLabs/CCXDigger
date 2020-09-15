@@ -99,9 +99,11 @@ reports:
 
       Additional information about interpreting results from this detection are provided at the CCX Digger [wiki](https://github.com/CCXLabs/CCXDigger/wiki/IIS-Logs-%5B0.1%5D).
 
-        <div role="button" class="btn btn-primary btn-block row collapsible">View Details</div>
+        <div role="button" class="btn btn-danger btn-block row collapsible">View Details - Suspicious IIS Log Entries</div>
         <div class="collapse row"><div class="card card-body overflow-auto">
         {{ Query "SELECT * FROM source()" | Table }}
         </div></div>
 
+      {{ else }}
+        <div role="button" class="btn btn-success btn-block row">Not hits found - Suspicious IIS Log Entries</div>
       {{ end }}

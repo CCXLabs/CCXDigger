@@ -24,12 +24,15 @@ reports:
       The Windows System event log (`C:\Windows\System32\winevt\logs\System.evtx`) was searched for any events which would be indicative of services being created referring to the %COMSPEC% environment variable. At least one such event was identified. These services may no longer exist in the current environment but did at some point previously.
 
       This detection does not necessarily indicate compromise and may be a false positive. Particularly there is potential that this is administrative activity.
-      
+
       If you need additional information about this detection or assistance with interpeting the results, please refer to our [Wiki](https://github.com/CCXLabs/CCXDigger/wiki/Service-Event-Logs-%5B0.1%5D).
 
-        <div role="button" class="btn btn-primary btn-block row collapsible">View Details</div>
+        <div role="button" class="btn btn-danger btn-block row collapsible">View Details - Suspicious Service Registration</div>
         <div class="collapse row"><div class="card card-body overflow-auto">
         {{ Query "SELECT * FROM source()" | Table }}
         </div></div>
+
+      {{ else }}
+        <div role="button" class="btn btn-success btn-block row">Not hits found - Suspicious Service Registration</div>
 
       {{ end }}

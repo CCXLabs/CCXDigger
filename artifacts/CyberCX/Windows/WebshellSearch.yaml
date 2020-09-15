@@ -7,7 +7,7 @@ description: |
   More information about how to interpret the results of this search are available on our [wiki](https://github.com/CCXLabs/CCXDigger/wiki/Webshell-%5B0.1%5D).
 
   ## References
-  
+
   Further information on the detection and prevention of webshells can be found at the following location:
 
   * <https://media.defense.gov/2020/Jun/09/2002313081/-1/-1/0/CSI-DETECT-AND-PREVENT-WEB-SHELL-MALWARE-20200422.PDF>
@@ -71,7 +71,7 @@ reports:
 
      ## PHP Webshell
 
-       <div role="button" class="btn btn-primary btn-block row collapsible">View Details</div>
+       <div role="button" class="btn btn-danger btn-block row collapsible">View Details - PHP Webshell</div>
        <div class="collapse row"><div class="card card-body overflow-auto">
 
      ### Summary
@@ -84,6 +84,9 @@ reports:
         WHERE Rule =~ 'importprint_php_sig_334_php_1_txt'" | Table }}</div>
         </div>
 
+      {{ else }}
+        <div role="button" class="btn btn-success btn-block row">Not hits found - PHP Webshell</div>
+
      {{ end }}
 
      {{ $rows := Query "SELECT * FROM source() \
@@ -93,7 +96,7 @@ reports:
 
      ## EternalBlue Exploit Script
 
-       <div role="button" class="btn btn-primary btn-block row collapsible">View Details</div>
+       <div role="button" class="btn btn-danger btn-block row collapsible">View Details - EternalBlue Exploit Script </div>
        <div class="collapse row"><div class="card card-body overflow-auto">
 
      ### Summary
@@ -106,6 +109,9 @@ reports:
                  WHERE Rule =~ 'd_py1'" | Table }}
          </div></div>
 
+      {{ else }}
+        <div role="button" class="btn btn-success btn-block row">Not hits found - EternalBlue Exploit Script </div>
+
      {{ end }}
 
      {{ $rows := Query "SELECT * FROM source() \
@@ -115,7 +121,7 @@ reports:
 
      ## Webshell with Encoded Malware
 
-       <div role="button" class="btn btn-primary btn-block row collapsible">View Details</div>
+       <div role="button" class="btn btn-danger btn-block row collapsible">View Details - Webshell with Encoded Malware</div>
        <div class="collapse row"><div class="card card-body overflow-auto">
 
      ### Summary
@@ -127,6 +133,8 @@ reports:
         {{ Query "SELECT FileName, Size, ModTime FROM source() \
         WHERE Rule =~ 'default_errorEN_logon_0_aspx'" | Table }}</div>
         </div>
+      {{ else }}
+        <div role="button" class="btn btn-success btn-block row">Not hits found - Webshell with Encoded Malware</div>
 
      {{ end }}
 
@@ -137,7 +145,7 @@ reports:
 
      ## False Microsoft Exchange Logon Page
 
-       <div role="button" class="btn btn-primary btn-block row collapsible">View Details</div>
+       <div role="button" class="btn btn-danger btn-block row collapsible">View Details - False Microsoft Exchange Logon Page</div>
        <div class="collapse row"><div class="card card-body overflow-auto">
 
      ### Summary
@@ -150,6 +158,9 @@ reports:
                                      WHERE Rule =~ 'logon_aspx1'" | Table }}</div>
         </div>
 
+      {{ else }}
+        <div role="button" class="btn btn-success btn-block row">Not hits found - False Microsoft Exchange Logon Page</div>
+
      {{ end }}
 
      {{ $rows := Query "SELECT * FROM source() \
@@ -159,7 +170,7 @@ reports:
 
      ## Perl Recon Script
 
-       <div role="button" class="btn btn-primary btn-block row collapsible">View Details</div>
+       <div role="button" class="btn btn-danger btn-block row collapsible">View Details - Perl Recon Script</div>
        <div class="collapse row"><div class="card card-body overflow-auto">
 
      ### Summary
@@ -172,6 +183,9 @@ reports:
        WHERE Rule =~ 'logon_aspx2'" | Table }}</div>
        </div>
 
+      {{ else }}
+        <div role="button" class="btn btn-success btn-block row">Not hits found - Perl Recon Script</div>
+
      {{ end }}
 
      {{ $rows := Query "SELECT * FROM source() \
@@ -181,7 +195,7 @@ reports:
 
      ## Reverse Webshell
 
-       <div role="button" class="btn btn-primary btn-block row collapsible">View Details</div>
+       <div role="button" class="btn btn-danger btn-block row collapsible">View Details - Reverse Webshell </div>
        <div class="collapse row"><div class="card card-body overflow-auto">
 
      ### Summary
@@ -194,6 +208,9 @@ reports:
         WHERE Rule =~ 'About_aspx'" | Table }}</div>
         </div>
 
+     {{ else }}
+        <div role="button" class="btn btn-success btn-block row">Not hits found - Reverse Webshell </div>
+
      {{ end }}
 
      {{ $rows := Query "SELECT * FROM source() \
@@ -203,7 +220,7 @@ reports:
 
      ## Obfuscated and Encoded Malware Webshell
 
-       <div role="button" class="btn btn-primary btn-block row collapsible">View Details</div>
+       <div role="button" class="btn btn-danger btn-block row collapsible">View Details -  Obfuscated and Encoded Malware Webshell </div>
        <div class="collapse row"><div class="card card-body overflow-auto">
 
      ### Summary
@@ -216,6 +233,9 @@ reports:
         WHERE Rule =~ 'InitialSrvWrk_aspx'" | Table }}</div>
        </div>
 
+     {{ else }}
+        <div role="button" class="btn btn-success btn-block row">Not hits found -  Obfuscated and Encoded Malware Webshell </div>
+
      {{ end }}
 
      {{ $rows := Query "SELECT * FROM source() \
@@ -225,7 +245,7 @@ reports:
 
      ## Malicious Resource File
 
-       <div role="button" class="btn btn-primary btn-block row collapsible">View Details</div>
+       <div role="button" class="btn btn-danger btn-block row collapsible">View Details</div>
        <div class="collapse row"><div class="card card-body overflow-auto">
 
      ### Summary
@@ -239,5 +259,8 @@ reports:
         {{ Query "SELECT FileName, Size, ModTime FROM source() \
         WHERE Rule =~ 'default_aspx'" | Table }}</div>
         </div>
+
+     {{ else }}
+       <div role="button" class="btn btn-success btn-block row">Not hits found - Malicious Resource File</div>
 
      {{ end }}

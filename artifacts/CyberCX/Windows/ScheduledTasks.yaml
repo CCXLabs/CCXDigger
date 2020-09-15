@@ -28,13 +28,16 @@ reports:
 
       ## Summary
 
-      A suspicious scheduled task was found, which executes a batch file, as indicated in the parameter "Command". This should be inspected further to determine whether it is malicious, including checking the metadata of the scheduled task, the location and metadata of the batch file, and the commands it runs. 
-      
+      A suspicious scheduled task was found, which executes a batch file, as indicated in the parameter "Command". This should be inspected further to determine whether it is malicious, including checking the metadata of the scheduled task, the location and metadata of the batch file, and the commands it runs.
+
       If you need additional information about this detection or assistance with interpeting the results, please refer to our [Wiki](https://github.com/CCXLabs/CCXDigger/wiki/Scheduled-Tasks-%5B0.1%5D).
-      
-        <div role="button" class="btn btn-primary btn-block row collapsible">View Details</div>
+
+        <div role="button" class="btn btn-danger btn-block row collapsible">View Details - Suspicious Scheduled Tasks</div>
         <div class="collapse row"><div class="card card-body overflow-auto">
         {{ Query "SELECT * FROM source() LIMIT 50" | Table }}
         </div> </div>
+
+      {{ else }}
+        <div role="button" class="btn btn-success btn-block row">Not hits found - Suspicious Scheduled Tasks</div>
 
       {{ end }}
