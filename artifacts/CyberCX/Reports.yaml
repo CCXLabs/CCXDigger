@@ -159,8 +159,8 @@ reports:
                  <h1>About</h1>
 
                  <p>This report shows the results from running CCX Digger on the above host at the provided timestamp. The CCX Digger project is designed
-                    to help Australian organisations determine if they have been impacted by certain high profile threat actors who have been targetting 
-                    Australian organisations. CCX Digger provides focused threat hunting functionality packaged in a simple to use tool, allowing users 
+                    to help Australian organisations determine if they have been impacted by certain high profile threat actors who have been targetting
+                    Australian organisations. CCX Digger provides focused threat hunting functionality packaged in a simple to use tool, allowing users
                     to detect specific attacker activities; <b>all for free</b>.
                     </p>
 
@@ -175,6 +175,8 @@ reports:
              </div>
              <div class="row">
                <!--Report Results-->
+               {{ $excluded := "Packs.CyberCX.Reports,Packs.CyberCX.Windows.ExecutionsTimeline" }}
+               {{ $informational := "Packs.CyberCX.Windows.ExecutionsTimeline" }}
                <div class="col">
                  <h1>Summary of findings</h1>
 
@@ -186,7 +188,7 @@ reports:
                        <th>Found</th>
                    </tr></thead>
                    <tbody>
-                     {{ range .parts }}{{ if not ( eq .Artifact.Name "Packs.CyberCX.Reports" ) }}
+                     {{ range .parts }}{{ if not ( contains .Artifact.Name $excluded  ) }}
                      {{ $artifact := .Artifact }}
                      {{ $description := .Artifact.Description }}
                      {{ range .Artifact.Sources }}
@@ -227,6 +229,58 @@ reports:
                      {{ end }}{{ end }}{{ end }}
                    </tbody>
                  </table>
+
+                 <h1>Collected data</h1>
+
+                 <table class="table">
+                   <thead><tr class="alert alert-primary">
+                       <th>Detector</th>
+                       <th>Details</th>
+                       <th>Detection Artifact</th>
+                       <th>Found</th>
+                   </tr></thead>
+                   <tbody>
+                     {{ range .parts }}{{ if ( contains .Artifact.Name $informational  ) }}
+                     {{ $artifact := .Artifact }}
+                     {{ $description := .Artifact.Description }}
+                     {{ range .Artifact.Sources }}
+                       {{ if .Description }}
+                          {{ $description = .Description }}
+                       {{ end }}
+
+                       <!-- Figure out how many rows were returned -->
+                       {{ $source := print "source(\n  source='" .Name "', artifact='" $artifact.Name "')" }}
+                       {{ $count := Get ( Query (print "LET X = SELECT * FROM " $source \
+                       " LIMIT 10000 SELECT 1 AS ALL, count() AS Count FROM X Group BY ALL") | Expand ) \
+                       "0.Count" }}
+
+                     <tr><td>
+                         {{ $words := splitList "." $artifact.Name }}
+                         <a href="#{{- $artifact.Name }}">
+                           {{ index $words (sub (len $words) 1) }} {{ .Name }}
+                         </a>
+                       </td>
+                       <td>
+                         {{ $lines := splitList "\n" $description }}
+                         {{ Markdown (index $lines 0) }}
+                       </td>
+                       <td>
+                         <a href="{{ $repo }}{{ join "/" ( without ( splitList "." $artifact.Name) "Packs" ) }}.yaml">
+                           {{ $artifact.Name }}
+                         </a>
+                       </td>
+                       <td>
+                         {{ if $count }}
+                            {{ $count }} rows
+                         {{ else }}
+                            Not found
+                         {{ end }}
+                       </td>
+                     </tr>
+                     {{ end }}{{ end }}{{ end }}
+                   </tbody>
+                 </table>
+
                </div>
              </div>
 
@@ -254,7 +308,7 @@ reports:
                <li><a href="https://www.velocidex.com">Velocidex</a> </li>
              </ul>
              <p> We also acknowledge contributions by the community in developing these artifacts and supporting this project. Individual contributors are
-             acknowledged within each artifact where they contributed. For more information on how you can contribute, please see the 
+             acknowledged within each artifact where they contributed. For more information on how you can contribute, please see the
              <a href="https://github.com/CCXLabs/CCXDigger/wiki/FAQ#how-can-i-contribute">wiki</a>.</p>
            </main>
            <script>
