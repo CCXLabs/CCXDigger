@@ -1,16 +1,7 @@
 name: Packs.CyberCX.Windows.WebshellSearch
 description: |
-  This search aims to identify potentially malicious files that may be indicative of a [webshell](https://www.cyber.gov.au/acsc/view-all-content/threats/web-shell-malware).
-
-  Specifically, key words and phrases will be searched for across all files with extensions of .php, .txt, .py, .aspx, or .resx.
-
+  This search aims to identify potentially malicious files that may be indicative of a [webshell](https://www.cyber.gov.au/acsc/view-all-content/threats/web-shell-malware). Specifically, key words and phrases will be searched for across all files with extensions of .php, .txt, .py, .aspx, or .resx.
   More information about how to interpret the results of this search are available on our [wiki](https://github.com/CCXLabs/CCXDigger/wiki/Webshell-%5B0.1%5D).
-
-  ## References
-
-  Further information on the detection and prevention of webshells can be found at the following location:
-
-  * <https://media.defense.gov/2020/Jun/09/2002313081/-1/-1/0/CSI-DETECT-AND-PREVENT-WEB-SHELL-MALWARE-20200422.PDF>
 
 tools:
   - name: CCXYaraRules
@@ -63,6 +54,11 @@ reports:
      # Webshell YARA Scan
 
      {{ .Description }}
+     ## References
+
+      Further information on the detection and prevention of webshells can be found at the following location:
+
+      * <https://media.defense.gov/2020/Jun/09/2002313081/-1/-1/0/CSI-DETECT-AND-PREVENT-WEB-SHELL-MALWARE-20200422.PDF>
 
      {{ $rows := Query "SELECT * FROM source() \
                          WHERE Rule =~ 'importprint_php_sig_334_php_1_txt' LIMIT 1" | Expand }}
