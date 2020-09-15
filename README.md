@@ -25,7 +25,7 @@ CCX Digger can perform scans on both individual systems and across an entire net
 ## Scanning an entire network
 
 1. [Install Velociraptor](https://www.velocidex.com/docs/getting-started/) across the network.  
-2. Follow the instructions here to obtain the latest CCX Digger artefact pack.
+2. Follow the instructions [here](https://github.com/CCXLabs/CCXDigger/wiki/Downloads#version-01-artefact-pack) to obtain the latest CCX Digger artefact pack.
 3. Follow the instructions above to execute a Velociraptor hunt across your network.
 4. Review the hunt results.
 
