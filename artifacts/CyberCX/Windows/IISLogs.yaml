@@ -105,5 +105,5 @@ reports:
         </div></div>
 
       {{ else }}
-        <div role="button" class="btn btn-success btn-block row">Not hits found - Suspicious IIS Log Entries</div>
+        <div role="button" class="btn btn-success btn-block row">No hits found - Suspicious IIS Log Entries</div>
       {{ end }}

@@ -33,6 +33,6 @@ reports:
         </div></div>
 
       {{ else }}
-        <div role="button" class="btn btn-success btn-block row">Not hits found - Suspicious Service Registration</div>
+        <div role="button" class="btn btn-success btn-block row">No hits found - Suspicious Service Registration</div>
 
       {{ end }}
