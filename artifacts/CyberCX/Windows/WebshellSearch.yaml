@@ -210,7 +210,8 @@ reports:
         </div>
 
      {{ else }}
-    ## Reverse Webshell
+
+     ## Reverse Webshell
         <div role="button" class="btn btn-success btn-block row">No hits found - Reverse Webshell </div>
 
      {{ end }}
@@ -236,7 +237,8 @@ reports:
        </div>
 
      {{ else }}
-    ## Obfuscated and Encoded Malware Webshell
+
+     ## Obfuscated and Encoded Malware Webshell
         <div role="button" class="btn btn-success btn-block row">No hits found -  Obfuscated and Encoded Malware Webshell </div>
 
      {{ end }}
@@ -264,7 +266,8 @@ reports:
         </div>
 
      {{ else }}
-    ## Malicious Resource File
+
+     ## Malicious Resource File
        <div role="button" class="btn btn-success btn-block row">No hits found - Malicious Resource File</div>
 
      {{ end }}
