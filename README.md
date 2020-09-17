@@ -1,7 +1,7 @@
 # CCX Digger / A CyberCX Velociraptor Project
 
 <div align="center">
-    <img src="https://www.aisa.org.au/images/aisa/sponsor%20images/cybercx_logo_stacked%20(1)%20(002).png" style="width:50%"></img>
+    <img src="https://github.com/CCXLabs/CCXDigger/blob/master/images/cybercx_logo_stacked_resized.png"></img>
     <img
 src="https://www.velocidex.com/images/logos/logo.svg"</img>
 </div>
