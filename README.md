@@ -1,4 +1,4 @@
-# CCX Digger / A CyberCX Velociraptor Project
+# CyberCX Digger / A CyberCX Velociraptor Project
 
 <div align="center">
     <img src="https://github.com/CCXLabs/CCXDigger/blob/master/images/cybercx_logo_stacked_resized.png"></img>
