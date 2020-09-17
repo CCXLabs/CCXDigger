@@ -1,7 +1,7 @@
 # CCX Digger / A CyberCX Velociraptor Project
 
 <div align="center">
-    <img src="https://camo.githubusercontent.com/72b54ccf6ce09bbf05d92ff18bbd0fae41f51561/68747470733a2f2f6d656469612d657870312e6c6963646e2e636f6d2f646d732f696d6167652f433536304241514734687335786e6a43326f672f636f6d70616e792d6c6f676f5f3230305f3230302f303f653d3231353930323434303026763d6265746126743d6c794954454e66557876773235565967596b363676384d53346b364c784e6561414c79454462314647704d"></img>
+    <img src="https://www.aisa.org.au/images/aisa/sponsor%20images/cybercx_logo_stacked%20(1)%20(002).png"></img>
     <img
 src="https://www.velocidex.com/images/logos/logo.svg"</img>
 </div>
