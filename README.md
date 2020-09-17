@@ -2,8 +2,6 @@
 
 <div align="center">
     <img src="https://github.com/CCXLabs/CCXDigger/blob/master/images/CyberCX_Digger_Velociraptor.png"></img>
-    <img
-src="https://www.velocidex.com/images/logos/logo.svg"</img>
 </div>
 
 The CCX Digger project is designed to help Australian organisations determine if they have been impacted by certain high profile [cyber security incidents](https://www.pm.gov.au/media/statement-malicious-cyber-activity-against-australian-networks). CCX Digger provides threat hunting functionality packaged in a simple-to-use tool, allowing users to detect certain attacker activities; **all for free**.
