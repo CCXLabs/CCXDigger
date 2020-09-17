@@ -1,7 +1,7 @@
 # CyberCX Digger / A CyberCX Velociraptor Project
 
 <div align="center">
-    <img src="https://github.com/CCXLabs/CCXDigger/blob/master/images/cybercx_logo_stacked_resized.png"></img>
+    <img src="https://github.com/CCXLabs/CCXDigger/blob/master/images/CyberCX_Digger_Velociraptor.png"></img>
     <img
 src="https://www.velocidex.com/images/logos/logo.svg"</img>
 </div>
